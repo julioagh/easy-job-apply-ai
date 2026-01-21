@@ -480,6 +480,30 @@ Julio Alberto Gonzales Heredia
 2. **Cuerpo:** Demostrar fit específico con ejemplos concretos
 3. **Cierre:** Mostrar entusiasmo y facilitar siguiente paso
 
+**Información sobre relocación (IMPORTANTE):**
+
+**Si la modalidad NO es "Remoto LATAM" (es decir, requiere presencia física):**
+- ✅ **Mencionar en el PÁRRAFO 4** (cierre) la disponibilidad de relocación
+- ✅ **Redacción sugerida (adaptar al idioma):**
+  
+  **En inglés:**
+  ```
+  I am fully open to relocation and ready to begin the process immediately upon 
+  offer confirmation. As a single professional without family dependencies, I can 
+  ensure a smooth and swift transition to [CIUDAD/PAÍS].
+  ```
+  
+  **En español:**
+  ```
+  Estoy completamente abierto a la reubicación y listo para iniciar el proceso 
+  inmediatamente tras la confirmación de la oferta. Como profesional soltero sin 
+  cargas familiares, puedo asegurar una transición fluida y rápida a [CIUDAD/PAÍS].
+  ```
+
+**Si la modalidad ES "Remoto LATAM":**
+- ❌ **NO mencionar** relocación (no es relevante)
+- ✅ **Enfocarse** en disponibilidad inmediata y experiencia en trabajo remoto
+
 **Evitar:**
 - ❌ Frases genéricas ("I am writing to apply...")
 - ❌ Repetir exactamente lo que está en el CV
