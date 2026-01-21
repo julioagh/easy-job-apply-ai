@@ -19,7 +19,8 @@ Generar CVs optimizados para sistemas ATS **solo cuando sea estratégicamente re
 - ✅ **Reducción de 60% en tokens** vs. versión anterior
 
 ### Nuevas (v2.1)
-- ✨ **Pipeline automatizado** con CLI completo
+- ✨ **Pipeline automatizado** con CLI completo (Fase 1 y 2)
+- ✨ **Conversor genérico MD → DOCX** (un script para todos los JDs)
 - ✨ **Validador de YAML** para context files
 - ✨ **Suite de tests** (29 tests, cobertura 28%)
 - ✨ **Configuración centralizada** (rutas portables)
@@ -68,11 +69,11 @@ Generar CVs optimizados para sistemas ATS **solo cuando sea estratégicamente re
 │   ├── prompt_fase1_analisis_estrategico_v2.md    # ✅ USAR (v2.0)
 │   └── prompt_fase2_generacion_cv_docx_v2.md      # ✅ USAR (v2.0)
 │
-├── scripts/                           # ✨ Scripts Python
+├── scripts/                           # ✨ Scripts Python (4 genéricos)
 │   ├── config.py                      # ✨ Configuración centralizada
-│   ├── generate_cv_docx.py            # 🔄 Generador DOCX (mejorado v2.1)
+│   ├── md_to_docx.py                  # ✨ Conversor genérico MD → DOCX
 │   ├── validate_yaml.py               # ✨ Validador de context files
-│   └── pipeline.py                    # ✨ Pipeline automatizado
+│   └── pipeline.py                    # ✨ Pipeline automatizado (Fase 1 y 2)
 │
 ├── tests/                             # ✨ Tests unitarios
 │   ├── test_config.py
@@ -188,8 +189,19 @@ python scripts/pipeline.py validate \
   --context sessions/context_20260121_AttachGroup_AgileCoach.yaml
 
 # Preparar Fase 2 (solo si recomendación = PROCEDER)
+# Busca el CV en Markdown y lo convierte a DOCX automáticamente
 python scripts/pipeline.py fase2 \
   --context sessions/context_20260121_AttachGroup_AgileCoach.yaml
+```
+
+### Conversor MD → DOCX (Genérico)
+
+```bash
+# Convertir cualquier CV en Markdown a DOCX
+python scripts/md_to_docx.py outputs/CV_Gonzales_Company_Position.md
+
+# Con nombre personalizado
+python scripts/md_to_docx.py outputs/CV_input.md -o CV_Custom.docx
 ```
 
 ### Validador de YAML
@@ -200,20 +212,6 @@ python scripts/validate_yaml.py sessions/context_20260121_Company_Position.yaml
 
 # Validar con verbose
 python scripts/validate_yaml.py -v sessions/context_file.yaml
-```
-
-### Generador de CV Personalizado
-
-```bash
-# Generar CV con configuración por defecto
-python scripts/generate_cv_docx.py
-
-# Generar CV personalizado
-python scripts/generate_cv_docx.py \
-  -o CV_Custom.docx \
-  --nombre "Juan Pérez" \
-  --email "juan@example.com" \
-  --telefono "+51 999888777"
 ```
 
 ### Tests
@@ -283,6 +281,8 @@ open htmlcov/index.html
 
 - **[GUIA_RAPIDA.md](docs/GUIA_RAPIDA.md)** - Guía de uso paso a paso
 - **[RECOMENDACIONES_OPTIMIZACION.md](docs/RECOMENDACIONES_OPTIMIZACION.md)** - Análisis técnico detallado
+- **[AUTOMATIZACION_FASE2.md](docs/AUTOMATIZACION_FASE2.md)** - ✨ Documentación de automatización Fase 2
+- **[ESTRUCTURA_SCRIPTS.md](docs/ESTRUCTURA_SCRIPTS.md)** - ✨ Estructura y descripción de scripts Python
 
 ## 🎯 Casos de Uso
 

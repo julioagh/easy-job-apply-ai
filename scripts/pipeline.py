@@ -232,8 +232,6 @@ Después ejecuta: python scripts/pipeline.py fase2 --context sessions/context_{s
 
         self.log("✅ Recomendación: PROCEDER")
 
-        # NOTA: Aquí también necesitamos intervención del LLM
-        # Por ahora generamos el input para Fase 2
         import yaml
 
         with open(context_file, 'r', encoding='utf-8') as f:
@@ -241,7 +239,29 @@ Después ejecuta: python scripts/pipeline.py fase2 --context sessions/context_{s
 
         session_id = context_data['session_id']
 
-        fase2_input = f"""
+        # Extraer company y position slugs del session_id
+        # Formato: YYYYMMDD_CompanySlug_PositionSlug
+        parts = session_id.split('_')
+        if len(parts) >= 3:
+            company_slug = parts[1]
+            position_slug = '_'.join(parts[2:])  # En caso de que haya múltiples underscores
+        else:
+            # Fallback: usar los campos originales
+            company = context_data['jd']['company']
+            position = context_data['jd']['position']
+            company_slug = company.replace(' ', '').replace('-', '')
+            position_slug = position.replace(' ', '').replace('-', '')
+
+        # Buscar CV en Markdown en outputs/
+        md_filename = f"CV_Gonzales_{company_slug}_{position_slug}.md"
+        md_path = get_output_path(md_filename)
+
+        if not md_path.exists():
+            self.log(f"❌ Error: No se encuentra el CV en Markdown: {md_path}", "ERROR")
+            self.log("⚠️  Genera primero el CV optimizado usando el LLM con el prompt de Fase 2", "WARNING")
+
+            # Generar archivo de instrucciones para el usuario
+            fase2_input = f"""
 # FASE 2: GENERACIÓN DE CV DOCX
 Session ID: {session_id}
 
@@ -254,32 +274,43 @@ Usar: {context_file}
 1. Copia el contenido de prompts/prompt_fase2_generacion_cv_docx_v2.md
 2. Completa los inputs requeridos (CV_ORIGINAL, JD_COMPLETA)
 3. Referencia este context file
-4. El LLM generará el código Python para crear el DOCX
-5. Ejecuta el código generado
+4. El LLM generará el CV optimizado en Markdown
+5. Ejecuta nuevamente este comando: python scripts/pipeline.py fase2 --context {context_file}
 
 ---
 
-PRÓXIMOS PASOS:
-1. Abre prompts/prompt_fase2_generacion_cv_docx_v2.md
-2. Completa con tu CV original y JD completa
-3. Referencia: {context_file}
-4. Ejecuta el código Python generado por el LLM
+ARCHIVO ESPERADO:
+{md_path}
 """
+            input_file = get_session_path(f"fase2_input_{session_id}.txt")
+            with open(input_file, 'w', encoding='utf-8') as f:
+                f.write(fase2_input)
 
-        input_file = get_session_path(f"fase2_input_{session_id}.txt")
-        with open(input_file, 'w', encoding='utf-8') as f:
-            f.write(fase2_input)
+            return False, None
 
-        self.log(f"✅ Input de Fase 2 generado: {input_file}", "SUCCESS")
-        self.log("\n" + "="*60)
-        self.log("SIGUIENTE PASO:")
-        self.log("1. Abre prompts/prompt_fase2_generacion_cv_docx_v2.md")
-        self.log("2. Completa los inputs (CV_ORIGINAL, JD_COMPLETA)")
-        self.log(f"3. Usa context file: {context_file}")
-        self.log("4. Ejecuta el código Python generado por el LLM")
-        self.log("="*60)
+        # Convertir MD a DOCX usando el script genérico
+        print(f"📄 CV Markdown encontrado: {md_path}")
+        print("🔄 Convirtiendo a formato DOCX...")
 
-        return True, input_file
+        try:
+            from md_to_docx import create_docx_from_markdown
+
+            docx_path = create_docx_from_markdown(str(md_path))
+
+            print(f"✅ CV DOCX generado exitosamente: {docx_path}")
+            print("\n" + "="*60)
+            print("FASE 2 COMPLETADA")
+            print(f"📄 CV Markdown: {md_path}")
+            print(f"📄 CV DOCX: {docx_path}")
+            print("="*60)
+
+            return True, docx_path
+
+        except Exception as e:
+            print(f"❌ Error al convertir MD a DOCX: {e}")
+            import traceback
+            traceback.print_exc()
+            return False, None
 
     def run_full_pipeline(self,
                           jd_file: Path,
