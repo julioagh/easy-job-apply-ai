@@ -1,0 +1,121 @@
+session_id: "20260121_AttachGroup_AgileCoach"
+timestamp: "2026-01-21T00:30:00-05:00"
+version: "2.0"
+
+jd:
+  company: "Attach Group"
+  position: "Agile Coach Entry (AI Transformation)"
+  seniority_level: "Mid"
+  industry: "Tecnología"
+  location: "Lima, Perú"
+  
+  keywords_criticos:
+    - keyword: "Scrum Master"
+      categoria: "Hard Skill"
+      frecuencia_objetivo: 5
+    - keyword: "OKRs"
+      categoria: "Metodología"
+      frecuencia_objetivo: 4
+    - keyword: "SAFe"
+      categoria: "Framework"
+      frecuencia_objetivo: 3
+    - keyword: "IA generativa"
+      categoria: "Hard Skill"
+      frecuencia_objetivo: 3
+    - keyword: "Change Management"
+      categoria: "Soft Skill"
+      frecuencia_objetivo: 3
+    - keyword: "agilidad escalada"
+      categoria: "Metodología"
+      frecuencia_objetivo: 4
+  
+  requisitos_indispensables:
+    - "2 años como Scrum Master"
+    - "Conocimiento de agilidad escalada (SAFe, LeSS)"
+    - "Experiencia en manejo de OKRs"
+  
+  idioma_jd: "español"
+
+cv_original:
+  candidate_name: "Julio Alberto Gonzales Heredia"
+  years_experience: 8
+  current_role: "Agile Coach Expert en BBVA Perú"
+
+fase1_resultado:
+  match_score: 85
+  clasificacion: "Alto"
+  
+  recomendacion: "PROCEDER"
+  justificacion_recomendacion: |
+    El candidato tiene un match del 85% con la posición. Cumple con todos los 
+    requisitos indispensables: 8 años de experiencia (supera los 2 requeridos), 
+    conocimiento sólido de SAFe y agilidad escalada, y experiencia comprobada 
+    en OKRs. El único gap menor es experiencia específica en IA generativa, 
+    pero puede mitigarse con reframing de proyectos de automatización.
+  
+  gaps_criticos:
+    - gap: "Experiencia específica en IA generativa"
+      impacto: "Medio"
+      estrategia_mitigacion: "Reframing de proyectos de automatización y transformación digital como precursores de adopción de IA"
+  
+  fortalezas_clave:
+    - fortaleza: "8 años de experiencia como Agile Coach"
+      relevancia_jd: "Supera ampliamente el requisito de 2 años como Scrum Master"
+      evidencia: "Transformación de 28 equipos en BBVA, 15 equipos en Entel"
+    
+    - fortaleza: "Certificación SAFe SPC y experiencia en escalado"
+      relevancia_jd: "Cumple requisito excluyente de agilidad escalada"
+      evidencia: "SAFe 5 Program Consultant, implementación de Spotify Model"
+    
+    - fortaleza: "Experiencia comprobada en OKRs"
+      relevancia_jd: "Cumple requisito indispensable de manejo de OKRs"
+      evidencia: "Implementación de framework OKRs para 4 VPs en BBVA"
+  
+  keywords_a_incluir:
+    "Scrum Master": 
+      frecuencia_objetivo: 5
+      contexto_sugerido: "summary, experiencia BBVA, experiencia Entel, skills"
+    
+    "OKRs":
+      frecuencia_objetivo: 4
+      contexto_sugerido: "summary, experiencia BBVA, skills"
+    
+    "SAFe":
+      frecuencia_objetivo: 3
+      contexto_sugerido: "summary, experiencia BBVA, certificaciones"
+    
+    "IA generativa":
+      frecuencia_objetivo: 3
+      contexto_sugerido: "summary (mencionar apertura), experiencia reciente (reframing)"
+    
+    "Change Management":
+      frecuencia_objetivo: 3
+      contexto_sugerido: "summary, experiencia BBVA, skills"
+    
+    "agilidad escalada":
+      frecuencia_objetivo: 4
+      contexto_sugerido: "summary, experiencia BBVA, experiencia Entel"
+  
+  experiencia_a_priorizar:
+    - rol: "BBVA Perú | Agile Coach Expert"
+      años: "2022-Presente"
+      prioridad: "Alta"
+      razon: "Rol actual, máxima relevancia: transformación ágil, OKRs, SAFe, Change Management"
+    
+    - rol: "Entel Perú | Agile Coach"
+      años: "2019-2021"
+      prioridad: "Alta"
+      razon: "Experiencia en escalado ágil (Spotify Model), transformación digital, portfolio management"
+    
+    - rol: "Rimac Seguros | Scrum Master"
+      años: "2017-2019"
+      prioridad: "Media"
+      razon: "Demuestra experiencia base como Scrum Master (requisito indispensable)"
+
+expectativas_salariales:
+  candidato_min: 8000
+  candidato_max: 10000
+  mercado_p50: 9000
+  posicionamiento: "Dentro"
+  viabilidad: "Alta"
+  currency: "PEN"

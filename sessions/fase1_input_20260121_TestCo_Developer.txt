@@ -1,0 +1,36 @@
+
+# FASE 1: ANÁLISIS ESTRATÉGICO
+Session ID: 20260121_TestCo_Developer
+
+## INPUTS
+
+### JD_TEXT:
+```
+Test Job Description
+```
+
+### CV_TEXT:
+```
+Test CV Content
+```
+
+### SALARY_EXPECTATIONS:
+USD 5000-6000
+
+### LOCATION:
+Remoto LATAM
+
+### CURRENCY:
+USD
+
+### ANALISIS_SALARIAL_DETALLADO:
+true
+
+---
+
+INSTRUCCIÓN: Copia este contenido y pégalo en tu LLM junto con el prompt de Fase 1.
+El LLM generará:
+1. Context file YAML → Guardar como: sessions/context_20260121_TestCo_Developer.yaml
+2. Análisis Markdown → Guardar como: sessions/analisis_20260121_TestCo_Developer.md
+
+Después ejecuta: python scripts/pipeline.py fase2 --context sessions/context_20260121_TestCo_Developer.yaml

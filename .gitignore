@@ -1,0 +1,42 @@
+# .gitignore
+
+# Archivos de sesión (pueden contener información sensible)
+sessions/*.yaml
+sessions/*.md
+!sessions/README.md
+
+# CVs generados (información personal)
+outputs/*.docx
+!outputs/README.md
+
+# Templates personalizados (pueden ser privados)
+templates/*.docx
+!templates/README.md
+
+# Archivos de sistema
+.DS_Store
+.vscode/
+.idea/
+
+# Archivos temporales
+*.tmp
+*.bak
+~$*.docx
+
+# Logs
+*.log
+
+# Python (si se automatiza)
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+env/
+.env
+
+# Node (si se crea interfaz web)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
