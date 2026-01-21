@@ -217,3 +217,126 @@ expectativas_salariales:
 Genera los DOS archivos con el contenido completo. NO me pidas más información, ya tienes todos los datos necesarios arriba.
 
 **EJECUTA EL ANÁLISIS AHORA** con los datos proporcionados.
+
+---
+
+## 🔄 DESPUÉS DE COMPLETAR FASE 1
+
+**Una vez que hayas generado los dos archivos (YAML y Markdown), sigue estos pasos:**
+
+### Si la recomendación es **PROCEDER** ✅:
+
+**Pregúntame:** "¿Quieres que continúe con la Fase 2 (Generación de CV DOCX optimizado)?"
+
+**Si respondo SÍ:**
+1. **Automáticamente ejecuta la Fase 2** usando:
+   - El context file YAML que acabas de generar
+   - El CV original que ya tienes
+   - La JD que ya tienes
+2. **NO me pidas** que copie/pegue el prompt de Fase 2
+3. **Genera directamente** el CV optimizado en Markdown
+
+**Si respondo NO:**
+- Termina aquí y espera mis instrucciones
+
+### Si la recomendación es **RECONSIDERAR** ⚠️ o **NO_APLICAR** ❌:
+
+**Pregúntame:** "La recomendación es [RECONSIDERAR/NO_APLICAR]. ¿Aún así quieres que genere el CV optimizado?"
+
+**Si respondo SÍ:**
+- Continúa con Fase 2 (mismo proceso que arriba)
+
+**Si respondo NO:**
+- Termina aquí
+
+---
+
+## 📝 INSTRUCCIONES PARA FASE 2 (EJECUCIÓN AUTOMÁTICA)
+
+**Cuando ejecutes Fase 2 automáticamente, debes:**
+
+### 1. Generar CV optimizado en Markdown
+
+**Ruta absoluta:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/outputs/CV_Gonzales_EMPRESA_POSICION.md`
+
+**Formato requerido:**
+```markdown
+# JULIO ALBERTO GONZALES HEREDIA
+
+Ciudad, País | +Teléfono | email@domain.com | LinkedIn: url
+
+---
+
+**Título profesional destacado**
+
+## PROFESSIONAL SUMMARY
+
+[3-5 líneas con 10-15 keywords críticos, años de experiencia, logros cuantificables]
+
+## PROFESSIONAL EXPERIENCE
+
+**EMPRESA | Ciudad, País**
+**Cargo | Mes Año - Mes Año**
+Contexto breve del rol
+
+• [Logro #1 con keywords + métrica cuantificable]
+• [Logro #2 con metodología/framework de la JD]
+• [Logro #3 con scope del rol]
+
+[Máximo 4-6 bullets para roles prioritarios]
+[Máximo 2 bullets para roles antiguos]
+
+## EDUCATION & CERTIFICATIONS
+
+[Certificaciones ordenadas por relevancia para JD, no cronológicamente]
+
+## KEY COMPETENCIES
+
+**Categoría 1:** keyword1, keyword2, keyword3
+**Categoría 2:** keyword4, keyword5, keyword6
+
+## LANGUAGES
+
+Spanish — Native | English — Advanced (C1)
+```
+
+### 2. Reglas de optimización
+
+**CRÍTICO:**
+- ✅ **Máximo 2 páginas** de contenido
+- ✅ **80% de keywords** deben coincidir EXACTAMENTE con términos de la JD
+- ✅ **Solo reframing** de experiencia real (NO inventar)
+- ✅ **Idioma:** Mismo que la JD (español o inglés)
+- ✅ **Keywords:** Cada keyword crítico debe aparecer 3-5 veces
+- ✅ **Métricas:** Incluir resultados cuantificables en bullets
+
+**Priorización si excede 2 páginas:**
+1. Mantener completos: Últimos 2-3 roles MÁS relevantes a la JD
+2. Condensar: Roles de 3-10 años atrás (máx 2 bullets)
+3. Omitir: Roles >10 años si no aportan keywords críticos
+
+### 3. Después de generar el Markdown
+
+**Indica al usuario:**
+
+```
+✅ CV optimizado generado en: outputs/CV_Gonzales_EMPRESA_POSICION.md
+
+Para convertir a DOCX, ejecuta:
+python3 scripts/md_to_docx.py outputs/CV_Gonzales_EMPRESA_POSICION.md
+
+El DOCX se generará automáticamente en: outputs/CV_Gonzales_EMPRESA_POSICION.docx
+```
+
+---
+
+## 🎯 RESUMEN DEL FLUJO COMPLETO
+
+1. **Ejecutas Fase 1** → Generas YAML + Markdown
+2. **Me preguntas** si quiero continuar con Fase 2
+3. **Si digo SÍ** → Ejecutas Fase 2 automáticamente
+4. **Generas** el CV optimizado en Markdown
+5. **Me indicas** el comando para convertir a DOCX
+
+**Beneficio:** El usuario solo copia/pega UNA VEZ al inicio, todo lo demás es automático.
+
