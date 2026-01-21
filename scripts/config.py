@@ -50,7 +50,7 @@ CV_FONT_SIZES = {
     'contacto': 9,
     'header': 12,
     'subheader': 9.5,
-    'body': 9,
+    'body': 9.5,
     'summary': 9.5
 }
 
