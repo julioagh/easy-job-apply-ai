@@ -222,11 +222,11 @@ Genera los DOS archivos con el contenido completo. NO me pidas más información
 
 ## 🔄 DESPUÉS DE COMPLETAR FASE 1
 
-**Una vez que hayas generado los dos archivos (YAML y Markdown), sigue estos pasos:**
+**Una vez que hayas generado los dos archivos (YAML y Markdown), evalúa el Match Score:**
 
-### Si la recomendación es **PROCEDER** ✅:
+### Si Match Score ≥ 70% (PROCEDER ✅):
 
-**Pregúntame:** "¿Quieres que continúe con la Fase 2 (Generación de CV DOCX optimizado)?"
+**Pregúntame:** "✅ Match Score: XX% - La recomendación es PROCEDER. ¿Quieres que continúe con la Fase 2 (Generación de CV DOCX optimizado)?"
 
 **Si respondo SÍ:**
 1. **Automáticamente ejecuta la Fase 2** usando:
@@ -235,18 +235,37 @@ Genera los DOS archivos con el contenido completo. NO me pidas más información
    - La JD que ya tienes
 2. **NO me pidas** que copie/pegue el prompt de Fase 2
 3. **Genera directamente** el CV optimizado en Markdown
+4. **Genera el archivo DOCX** con el formato profesional
 
 **Si respondo NO:**
 - Termina aquí y espera mis instrucciones
 
-### Si la recomendación es **RECONSIDERAR** ⚠️ o **NO_APLICAR** ❌:
+### Si Match Score < 70% (RECONSIDERAR ⚠️ o NO_APLICAR ❌):
 
-**Pregúntame:** "La recomendación es [RECONSIDERAR/NO_APLICAR]. ¿Aún así quieres que genere el CV optimizado?"
+**NO me preguntes** si quiero continuar con Fase 2.
 
-**Si respondo SÍ:**
+**Muestra este mensaje:**
+
+```
+⚠️ Match Score: XX% - La recomendación es [RECONSIDERAR/NO_APLICAR]
+
+Razones principales:
+- [Lista de gaps críticos o problemas identificados]
+
+NO se recomienda generar el CV optimizado en este momento.
+
+Próximos pasos sugeridos:
+1. [Acción recomendada 1]
+2. [Acción recomendada 2]
+
+Si aún así deseas generar el CV, responde "FORZAR FASE 2"
+```
+
+**Si respondo "FORZAR FASE 2":**
 - Continúa con Fase 2 (mismo proceso que arriba)
+- Incluye una advertencia sobre el bajo match
 
-**Si respondo NO:**
+**Si no respondo o respondo otra cosa:**
 - Termina aquí
 
 ---
@@ -315,28 +334,78 @@ Spanish — Native | English — Advanced (C1)
 2. Condensar: Roles de 3-10 años atrás (máx 2 bullets)
 3. Omitir: Roles >10 años si no aportan keywords críticos
 
-### 3. Después de generar el Markdown
+### 3. Generar el archivo DOCX
 
-**Indica al usuario:**
+**IMPORTANTE:** Debes generar el archivo DOCX directamente usando la librería `python-docx`.
+
+**Ruta absoluta del DOCX:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/outputs/CV_Gonzales_EMPRESA_POSICION.docx`
+
+**Especificaciones del DOCX:**
+
+```python
+# Configuración del documento
+- Márgenes: 1.22 cm en todos los lados
+- Fuente: Arial
+- Tamaños:
+  * Nombre (header): 18pt Bold
+  * Contacto: 9pt Normal
+  * Headers de sección (##): 12pt Bold UPPERCASE
+  * Summary: 9.5pt Normal
+  * Empresa | Cargo: 9pt Normal (NO Bold)
+  * Bullets (•): 9pt Normal
+  * Texto descriptivo: 9.5pt Normal
+- Espaciado: 1 línea entre secciones
+- Alineación: Izquierda (justificada para párrafos)
+- Sin colores, bordes o tablas complejas
+```
+
+**Estructura del DOCX:**
+
+1. **Header:**
+   - Nombre: 18pt Bold, centrado
+   - Contacto: 9pt Normal, centrado
+   - Separador: línea de guiones bajos
+
+2. **Secciones:**
+   - Cada sección con header 12pt Bold UPPERCASE
+   - Contenido con formato según tipo (bullets, párrafos, etc.)
+   - Separador entre secciones
+
+**Después de generar el DOCX, indica al usuario:**
 
 ```
-✅ CV optimizado generado en: outputs/CV_Gonzales_EMPRESA_POSICION.md
+✅ FASE 2 COMPLETADA
 
-Para convertir a DOCX, ejecuta:
-python3 scripts/md_to_docx.py outputs/CV_Gonzales_EMPRESA_POSICION.md
+Archivos generados:
+1. Markdown: outputs/CV_Gonzales_EMPRESA_POSICION.md
+2. DOCX: outputs/CV_Gonzales_EMPRESA_POSICION.docx
 
-El DOCX se generará automáticamente en: outputs/CV_Gonzales_EMPRESA_POSICION.docx
+El CV está listo para aplicar. Características:
+- ✅ Máximo 2 páginas
+- ✅ Keywords optimizados (80% match con JD)
+- ✅ Formato ATS-friendly
+- ✅ Idioma correcto
+- ✅ Métricas cuantificables incluidas
+
+Próximos pasos:
+1. Revisa el DOCX generado
+2. Verifica que sea máximo 2 páginas
+3. Aplica a la posición
 ```
 
 ---
 
 ## 🎯 RESUMEN DEL FLUJO COMPLETO
 
-1. **Ejecutas Fase 1** → Generas YAML + Markdown
-2. **Me preguntas** si quiero continuar con Fase 2
-3. **Si digo SÍ** → Ejecutas Fase 2 automáticamente
+1. **Ejecutas Fase 1** → Generas YAML + Markdown de análisis
+2. **Evalúas Match Score:**
+   - Si ≥70%: Preguntas si continuar
+   - Si <70%: Muestras mensaje de NO recomendado
+3. **Si usuario dice SÍ** → Ejecutas Fase 2 automáticamente
 4. **Generas** el CV optimizado en Markdown
-5. **Me indicas** el comando para convertir a DOCX
+5. **Generas** el archivo DOCX con formato profesional
+6. **Confirmas** al usuario que todo está listo
 
-**Beneficio:** El usuario solo copia/pega UNA VEZ al inicio, todo lo demás es automático.
+**Beneficio:** El usuario solo copia/pega UNA VEZ al inicio, obtiene el DOCX listo automáticamente si el match es ≥70%.
+
 
