@@ -386,26 +386,175 @@ El CV está listo para aplicar. Características:
 - ✅ Formato ATS-friendly
 - ✅ Idioma correcto
 - ✅ Métricas cuantificables incluidas
+```
+
+**Después de mostrar este mensaje, PREGUNTA:**
+
+```
+¿Quieres que genere una Cover Letter estratégica para esta posición?
+```
+
+**Si respondo SÍ:**
+- Continúa con Fase 3 (instrucciones abajo)
+
+**Si respondo NO:**
+- Termina aquí
+
+---
+
+## 📧 INSTRUCCIONES PARA FASE 3: COVER LETTER (EJECUCIÓN AUTOMÁTICA)
+
+**Cuando ejecutes Fase 3 automáticamente, debes:**
+
+### 1. Generar Cover Letter en Markdown
+
+**Ruta absoluta:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/outputs/CoverLetter_Gonzales_EMPRESA_POSICION.md`
+
+**Idioma:** MISMO que el CV generado (español o inglés)
+
+**Estructura de la Cover Letter:**
+
+```markdown
+# COVER LETTER
+
+**Julio Alberto Gonzales Heredia**
+Lima, Perú | +51 992755873 | jgonzales.sbs@gmail.com
+LinkedIn: linkedin.com/in/julioagh
+
+---
+
+**[Fecha actual]**
+
+**[Nombre del Hiring Manager o "Hiring Team"]**
+**[NOMBRE DE LA EMPRESA]**
+**[Ciudad, País]**
+
+**Re: Application for [TÍTULO DE LA POSICIÓN]**
+
+---
+
+Dear [Hiring Manager/Hiring Team],
+
+[PÁRRAFO 1 - APERTURA IMPACTANTE]
+- Mencionar la posición específica
+- Hook inicial que demuestre conocimiento de la empresa/industria
+- Declaración de valor único que ofreces
+- Por qué esta posición te interesa específicamente
+
+[PÁRRAFO 2 - MATCH CON REQUISITOS CLAVE]
+- Destacar 2-3 requisitos CRÍTICOS de la JD
+- Para cada uno, proporcionar evidencia específica de tu experiencia
+- Usar métricas y resultados cuantificables
+- Conectar con keywords de la JD
+
+[PÁRRAFO 3 - VALOR DIFERENCIAL]
+- Explicar qué te hace único para esta posición
+- Destacar fortalezas identificadas en el análisis de Fase 1
+- Mencionar cómo puedes abordar gaps identificados (si aplica)
+- Conectar tu experiencia con los objetivos de la empresa
+
+[PÁRRAFO 4 - CIERRE Y CALL TO ACTION]
+- Reafirmar entusiasmo por la posición
+- Mencionar disponibilidad para entrevista
+- Agradecer por la consideración
+- Call to action claro
+
+Sincerely,
+
+Julio Alberto Gonzales Heredia
+```
+
+### 2. Reglas de redacción
+
+**CRÍTICO:**
+- ✅ **Máximo 1 página** (350-400 palabras)
+- ✅ **Idioma:** Mismo que el CV (español o inglés)
+- ✅ **Tono:** Profesional, confiado pero no arrogante
+- ✅ **Personalización:** Específica para la empresa y posición
+- ✅ **Evidencia:** Cada afirmación debe tener un ejemplo concreto
+- ✅ **Keywords:** Incluir 5-7 keywords críticos de la JD naturalmente
+- ✅ **Autenticidad:** Solo mencionar experiencia real del CV
+
+**Estrategia de contenido:**
+1. **Apertura:** Captar atención en las primeras 2 líneas
+2. **Cuerpo:** Demostrar fit específico con ejemplos concretos
+3. **Cierre:** Mostrar entusiasmo y facilitar siguiente paso
+
+**Evitar:**
+- ❌ Frases genéricas ("I am writing to apply...")
+- ❌ Repetir exactamente lo que está en el CV
+- ❌ Mencionar debilidades o gaps sin estrategia de mitigación
+- ❌ Ser demasiado largo o verboso
+
+### 3. Generar el archivo DOCX de la Cover Letter
+
+**Ruta absoluta:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/outputs/CoverLetter_Gonzales_EMPRESA_POSICION.docx`
+
+**Especificaciones del DOCX:**
+
+```python
+# Configuración del documento
+- Márgenes: 2.54 cm en todos los lados (estándar carta formal)
+- Fuente: Arial o Calibri
+- Tamaños:
+  * Nombre/contacto (header): 11pt Bold
+  * Fecha y dirección: 11pt Normal
+  * Cuerpo de la carta: 11pt Normal
+  * Firma: 11pt Normal
+- Espaciado: 1.15 líneas
+- Alineación: Izquierda
+- Espaciado entre párrafos: 6pt después
+```
+
+### 4. Después de generar la Cover Letter
+
+**Indica al usuario:**
+
+```
+✅ FASE 3 COMPLETADA
+
+Archivos generados:
+1. Markdown: outputs/CoverLetter_Gonzales_EMPRESA_POSICION.md
+2. DOCX: outputs/CoverLetter_Gonzales_EMPRESA_POSICION.docx
+
+La Cover Letter está lista. Características:
+- ✅ Máximo 1 página
+- ✅ Idioma: [español/inglés] (mismo que CV)
+- ✅ Personalizada para la posición
+- ✅ Evidencia específica de fit
+- ✅ Keywords estratégicos incluidos
+
+---
+
+🎉 PROCESO COMPLETO FINALIZADO
+
+Archivos listos para aplicar:
+1. CV: outputs/CV_Gonzales_EMPRESA_POSICION.docx
+2. Cover Letter: outputs/CoverLetter_Gonzales_EMPRESA_POSICION.docx
+3. Análisis: sessions/analisis_YYYYMMDD_EMPRESA_POSICION.md
 
 Próximos pasos:
-1. Revisa el DOCX generado
-2. Verifica que sea máximo 2 páginas
-3. Aplica a la posición
+1. Revisa ambos documentos
+2. Personaliza la Cover Letter si lo deseas (opcional)
+3. Aplica a la posición con confianza
 ```
 
 ---
 
-## 🎯 RESUMEN DEL FLUJO COMPLETO
+## 🎯 RESUMEN DEL FLUJO COMPLETO ACTUALIZADO
 
 1. **Ejecutas Fase 1** → Generas YAML + Markdown de análisis
 2. **Evalúas Match Score:**
    - Si ≥70%: Preguntas si continuar
    - Si <70%: Muestras mensaje de NO recomendado
 3. **Si usuario dice SÍ** → Ejecutas Fase 2 automáticamente
-4. **Generas** el CV optimizado en Markdown
-5. **Generas** el archivo DOCX con formato profesional
-6. **Confirmas** al usuario que todo está listo
+4. **Generas** el CV optimizado en Markdown + DOCX
+5. **Preguntas** si quiere Cover Letter
+6. **Si usuario dice SÍ** → Ejecutas Fase 3 automáticamente
+7. **Generas** Cover Letter en Markdown + DOCX
+8. **Confirmas** que todo está listo
 
-**Beneficio:** El usuario solo copia/pega UNA VEZ al inicio, obtiene el DOCX listo automáticamente si el match es ≥70%.
+**Beneficio:** El usuario solo copia/pega UNA VEZ al inicio, obtiene CV + Cover Letter listos automáticamente si el match es ≥70%.
+
 
 
