@@ -3,11 +3,19 @@
 # Archivos de sesión (pueden contener información sensible)
 sessions/*.yaml
 sessions/*.md
+sessions/fase*_input_*.txt
 !sessions/README.md
 
 # CVs generados (información personal)
 outputs/*.docx
+outputs/*.md
+outputs/*.pages
+outputs/*.pdf
 !outputs/README.md
+
+# CVs personales (información sensible)
+resumes_txt/*.txt
+!resumes_txt/README.md
 
 # Templates personalizados (pueden ser privados)
 templates/*.docx
