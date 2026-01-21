@@ -62,7 +62,8 @@ ANALISIS_SALARIAL_DETALLADO: true
 
 ### OUTPUT 1: Context File (YAML) - Para Fase 2
 
-**Archivo:** `context_{SESSION_ID}.yaml`
+**Archivo:** `sessions/context_{SESSION_ID}.yaml`
+**Ruta completa:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/sessions/context_{SESSION_ID}.yaml`
 
 ```yaml
 # Este archivo se usará en Fase 2 para evitar reenviar toda la información
@@ -144,7 +145,8 @@ expectativas_salariales:
 
 ### OUTPUT 2: Análisis Estratégico (Markdown) - Para Revisión Humana
 
-**Archivo:** `analisis_{SESSION_ID}.md`
+**Archivo:** `sessions/analisis_{SESSION_ID}.md`
+**Ruta completa:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/sessions/analisis_{SESSION_ID}.yaml`
 
 ```markdown
 ## 📊 ANÁLISIS DE FIT

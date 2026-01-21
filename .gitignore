@@ -21,6 +21,14 @@ resumes_txt/*.txt
 templates/*.docx
 !templates/README.md
 
+# Archivos generados accidentalmente en raíz (deberían estar en sessions/ u outputs/)
+/context_*.yaml
+/analisis_*.md
+/CV_*.md
+/CV_*.docx
+/CV_*.pdf
+/CV_*.pages
+
 # Archivos de sistema
 .DS_Store
 .vscode/

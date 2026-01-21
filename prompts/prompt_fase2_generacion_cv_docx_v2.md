@@ -462,7 +462,8 @@ doc.save(output_path)
 
 ## 📤 OUTPUT FINAL
 
-**Archivo:** `CV_{CANDIDATE}_{POSITION_SLUG}.docx`
+**Archivo:** `outputs/CV_{CANDIDATE}_{POSITION_SLUG}.docx`
+**Ruta completa:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/outputs/CV_{CANDIDATE}_{POSITION_SLUG}.docx`
 
 **Ubicación:** `./outputs/`
 
@@ -569,8 +570,9 @@ Antes de generar el CV, verificar:
 - Verifica que sea máximo 2 páginas de contenido
 
 **PASO 2: Guardar Markdown en outputs/**
-- Nombre: `CV_{APELLIDO}_{EMPRESA}_{POSICION}.md`
-- Ubicación: `outputs/`
+- **Nombre:** `CV_{APELLIDO}_{EMPRESA}_{POSICION}.md`
+- **Ruta completa:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md`
+- **Ubicación:** `outputs/`
 - Mantener como referencia
 
 **PASO 3: Ejecutar Script Python para Generar DOCX**
