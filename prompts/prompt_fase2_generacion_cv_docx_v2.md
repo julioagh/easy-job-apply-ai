@@ -26,24 +26,37 @@ Si Fase 1 recomendó "RECONSIDERAR" o "NO_APLICAR", **NO ejecutar esta fase**.
 
 ## 📝 NOTA IMPORTANTE SOBRE EL OUTPUT
 
-**IMPORTANTE:** Cuando generes archivos, SIEMPRE usa la **ruta absoluta completa**:
-- **Markdown:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md`
-- **DOCX:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.docx`
+**⚠️ IMPORTANTE PARA COWORK/LLMs:**
 
-**Proceso de Generación:**
+**TU TAREA ES SOLO GENERAR EL ARCHIVO MARKDOWN.** NO intentes ejecutar el script Python.
 
-1. ✅ **Generar contenido optimizado en Markdown**
-   - Guardar en: `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md`
-   - Usar SIEMPRE la ruta absoluta completa
+**Proceso:**
 
-2. ✅ **Convertir Markdown a DOCX** usando el script Python:
-   ```bash
-   python3 scripts/md_to_docx.py outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md
-   ```
-   - El script automáticamente guardará el DOCX en `outputs/`
-   - Aplicará formato profesional ATS-friendly
+1. ✅ **TÚ GENERAS:** Contenido optimizado en Markdown
+   - **Ruta absoluta:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md`
+   - **Formato requerido:**
+     ```markdown
+     # NOMBRE COMPLETO DEL CANDIDATO
+     
+     Ciudad, País | +Teléfono | email@domain.com | LinkedIn: url
+     
+     ---
+     
+     ## PROFESSIONAL SUMMARY
+     [Contenido del summary...]
+     
+     ## PROFESSIONAL EXPERIENCE
+     [Contenido de experiencia...]
+     ```
 
-**El script `md_to_docx.py` aplica automáticamente:**
+2. ❌ **TÚ NO EJECUTAS:** El script Python `md_to_docx.py`
+   - El USUARIO ejecutará el script manualmente después
+   - Solo menciona al usuario que debe ejecutar:
+     ```bash
+     python3 scripts/md_to_docx.py outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md
+     ```
+
+**El script `md_to_docx.py` (ejecutado por el usuario) aplica:**
 - Márgenes: 1.22 cm en todos los lados
 - Fuentes: Arial con tamaños exactos (18pt nombre, 12pt headers, 9pt bullets, 9.5pt summary)
 - Formato ATS-friendly: Sin tablas complejas, bullets simples
