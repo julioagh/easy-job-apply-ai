@@ -26,25 +26,28 @@ Si Fase 1 recomendó "RECONSIDERAR" o "NO_APLICAR", **NO ejecutar esta fase**.
 
 ## 📝 NOTA IMPORTANTE SOBRE EL OUTPUT
 
-**Output Esperado:** **DOCX DIRECTO** usando script Python automatizado
+**IMPORTANTE:** Cuando generes archivos, SIEMPRE usa la **ruta absoluta completa**:
+- **Markdown:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md`
+- **DOCX:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.docx`
 
-**Proceso Automático:**
-1. ✅ Genera contenido optimizado en Markdown (en memoria)
-2. ✅ **EJECUTA el script Python** para crear DOCX con formato profesional:
+**Proceso de Generación:**
+
+1. ✅ **Generar contenido optimizado en Markdown**
+   - Guardar en: `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md`
+   - Usar SIEMPRE la ruta absoluta completa
+
+2. ✅ **Convertir Markdown a DOCX** usando el script Python:
    ```bash
-   python3 scripts/generate_cv_docx.py
+   python3 scripts/md_to_docx.py outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md
    ```
-3. ✅ Entrega archivo DOCX listo para aplicar (sin formateo manual)
+   - El script automáticamente guardará el DOCX en `outputs/`
+   - Aplicará formato profesional ATS-friendly
 
-**Ubicación del script:** `scripts/generate_cv_docx.py`
-
-**El script aplica automáticamente:**
+**El script `md_to_docx.py` aplica automáticamente:**
 - Márgenes: 1.22 cm en todos los lados
 - Fuentes: Arial con tamaños exactos (18pt nombre, 12pt headers, 9pt bullets, 9.5pt summary)
 - Formato ATS-friendly: Sin tablas complejas, bullets simples
 - Estructura profesional: Espaciado correcto entre secciones
-
-**IMPORTANTE:** El script actualmente está configurado para el CV de Julio Gonzales. Para futuras aplicaciones, el LLM debe generar el contenido optimizado primero (paso 1) y luego invocar el script (paso 2).
 
 ---
 
@@ -575,33 +578,18 @@ Antes de generar el CV, verificar:
 - **Ubicación:** `outputs/`
 - Mantener como referencia
 
-**PASO 3: Ejecutar Script Python para Generar DOCX**
+**PASO 3: Convertir Markdown a DOCX usando el Script Python**
 
 ```bash
-# Verificar que python-docx esté instalado
-pip list | grep python-docx
-
-# Si no está instalado:
-pip install python-docx --user
-
-# Ejecutar script de generación
-python3 scripts/generate_cv_docx.py
+# El script automáticamente detectará el archivo .md en outputs/ y creará el .docx
+python3 scripts/md_to_docx.py outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md
 ```
 
-**NOTA IMPORTANTE:**
-El script actual (`scripts/generate_cv_docx.py`) está hardcodeado para el CV de Julio Gonzales aplicando a Attach Group. Para futuras aplicaciones:
-
-**Opción A - Script Dinámico (RECOMENDADO):**
-1. Usa el script actual como template de formato
-2. Genera un nuevo script temporal con el contenido optimizado específico
-3. Ejecuta el script temporal
-4. Limpia el archivo temporal
-
-**Opción B - Reutilizar Script Actual:**
-Si la aplicación es para Julio Gonzales con datos similares, simplemente ejecuta:
-```bash
-python3 scripts/generate_cv_docx.py
-```
+**El script `md_to_docx.py`:**
+- Lee el archivo Markdown de `outputs/`
+- Aplica formato profesional ATS-friendly
+- Guarda el DOCX automáticamente en `outputs/` con el mismo nombre
+- Configura márgenes, fuentes y espaciado correctos
 
 **PASO 4: Validar Output**
 - Verificar que el archivo `.docx` se creó en `outputs/`
