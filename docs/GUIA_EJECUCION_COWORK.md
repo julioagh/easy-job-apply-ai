@@ -4,14 +4,30 @@
 
 ---
 
+## ⚠️ IMPORTANTE: LIMITACIONES DE COWORK/LLMs
+
+**Cowork NO tiene acceso automático a tus archivos.** Debes:
+1. ✅ **Copiar manualmente** el contenido de los archivos que necesites
+2. ✅ **Pegar TODO el prompt completo** - Cowork no lee archivos del proyecto
+3. ✅ **Incluir TODOS los inputs** - No asumas que Cowork sabe dónde están tus archivos
+4. ✅ **Especificar rutas absolutas** cuando pidas que genere archivos
+
+**Cowork NO lee:**
+- ❌ Archivos de tu proyecto automáticamente
+- ❌ Contenido de carpetas
+- ❌ Referencias a archivos (debes copiar el contenido)
+
+---
+
 ## 📋 PREPARACIÓN
 
-Antes de comenzar, ten listos:
-1. ✅ Job Description (JD) completa de la posición
-2. ✅ Tu CV actual (español o inglés según JD)
-3. ✅ Tu expectativa salarial
-4. ✅ Modalidad de trabajo (Remoto LATAM / Híbrido Lima / Lima Perú)
-5. ✅ Moneda de la oferta (USD / PEN / EUR / etc.)
+Antes de comenzar, **ABRE Y COPIA** el contenido de estos archivos:
+
+1. ✅ **Job Description (JD)** completa de la posición → Copia el texto completo
+2. ✅ **Tu CV actual** → Abre `resumes_txt/CV_Julio_Gonzales - SPA.txt` o `CV - Julio Gonzales - ENG.txt` y copia TODO el contenido
+3. ✅ **Tu expectativa salarial** → Ten claro el rango
+4. ✅ **Modalidad de trabajo** → Remoto LATAM / Híbrido Lima / Lima Perú
+5. ✅ **Moneda de la oferta** → USD / PEN / EUR / etc.
 
 ---
 
@@ -21,17 +37,19 @@ Antes de comenzar, ten listos:
 
 Abre el archivo: `prompts/prompt_fase1_analisis_estrategico_v2.md`
 
-### Paso 2: Completar los Inputs
+### Paso 2: Completar los Inputs MANUALMENTE
 
-Reemplaza las secciones entre `{}` con tus datos reales:
+**CRÍTICO:** Debes **COPIAR Y PEGAR** el contenido real, no solo referencias.
 
 ```yaml
 JD_TEXT: |
-  {Pegar aquí la descripción completa del puesto}
+  {PEGAR AQUÍ TODO EL TEXTO DE LA JD - NO SOLO EL LINK O NOMBRE}
+  # Ejemplo: Copia desde "Empresa X busca..." hasta el final de la oferta
 
 CV_TEXT: |
-  {Copiar contenido de resumes_txt/CV_Julio_Gonzales - SPA.txt}
-  # O resumes_txt/CV - Julio Gonzales - ENG.txt si JD está en inglés
+  {COPIAR TODO EL CONTENIDO DEL ARCHIVO resumes_txt/CV_Julio_Gonzales - SPA.txt}
+  # NO escribas solo "resumes_txt/CV_Julio_Gonzales - SPA.txt"
+  # Debes ABRIR el archivo y COPIAR todo su contenido aquí
 
 SALARY_EXPECTATIONS: "S/ 15,000 - S/ 17,000"
   # Ajustar según tu expectativa en la moneda de la oferta
@@ -46,18 +64,23 @@ ANALISIS_SALARIAL_DETALLADO: true
   # Siempre true para análisis completo
 ```
 
-### Paso 3: Copiar TODO el Prompt
+### Paso 3: Copiar TODO el Prompt (Ya Completado)
 
-1. Copia **TODO** el contenido del archivo `prompt_fase1_analisis_estrategico_v2.md` (desde el inicio hasta el final)
-2. Asegúrate de haber completado los inputs con tus datos reales
+1. Después de completar los inputs con el contenido REAL (no referencias)
+2. Copia **TODO** el contenido del archivo `prompt_fase1_analisis_estrategico_v2.md` (desde línea 1 hasta el final)
+3. Verifica que los inputs tengan el contenido completo (no solo nombres de archivos)
 
 ### Paso 4: Pegar en Cowork
 
 1. Abre Cowork (o tu LLM preferido)
-2. Pega el prompt completo
-3. Envía
+2. **Pega el prompt completo** (debe ser un texto MUY largo si incluiste JD y CV completos)
+3. **IMPORTANTE:** Antes de enviar, verifica que:
+   - ✅ La JD completa está pegada (no solo el link)
+   - ✅ El CV completo está pegado (no solo el nombre del archivo)
+   - ✅ Todos los demás inputs están completos
+4. Envía
 
-### Paso 5: Guardar los Outputs
+### Paso 5: Guardar los Outputs MANUALMENTE
 
 El LLM generará **2 archivos**:
 
@@ -89,31 +112,40 @@ Lee el análisis y busca la sección **"DECISIÓN FINAL"**:
 
 Abre el archivo: `prompts/prompt_fase2_generacion_cv_docx_v2.md`
 
-### Paso 2: Completar los Inputs
+### Paso 2: Completar los Inputs MANUALMENTE
+
+**CRÍTICO:** Igual que en Fase 1, debes **COPIAR Y PEGAR** el contenido completo.
 
 ```yaml
 CONTEXT_FILE: |
-  {Copiar TODO el contenido del archivo context_YYYYMMDD_EMPRESA_POSICION.yaml generado en Fase 1}
+  {ABRIR sessions/context_YYYYMMDD_EMPRESA_POSICION.yaml Y COPIAR TODO SU CONTENIDO AQUÍ}
+  # NO escribas solo "sessions/context_..."
+  # Debes ABRIR el archivo YAML generado en Fase 1 y COPIAR todo su contenido
 
 CV_ORIGINAL: |
-  {Copiar contenido de resumes_txt/CV_Julio_Gonzales - SPA.txt}
-  # O resumes_txt/CV - Julio Gonzales - ENG.txt según idioma de JD
+  {COPIAR TODO EL CONTENIDO DEL ARCHIVO resumes_txt/CV_Julio_Gonzales - SPA.txt}
+  # El MISMO CV que usaste en Fase 1
+  # Debes ABRIR el archivo y COPIAR todo su contenido aquí
 
 JD_COMPLETA: |
-  {Pegar la Job Description completa - la misma que usaste en Fase 1}
+  {PEGAR LA MISMA JD COMPLETA QUE USASTE EN FASE 1}
+  # Copia el texto completo de la oferta de trabajo
 
 TEMPLATE_DOCX: "./templates/CV_Template.docx"
-  # Ruta al template (opcional)
+  # Ruta al template (opcional, puedes dejarlo así)
 
 IDIOMA_OUTPUT: "auto"
   # "auto" = detectar de JD | "español" | "inglés"
 ```
 
-### Paso 3: Copiar TODO el Prompt
+### Paso 3: Copiar TODO el Prompt (Ya Completado)
 
-1. Copia **TODO** el contenido del archivo `prompt_fase2_generacion_cv_docx_v2.md`
-2. Asegúrate de haber completado los inputs con tus datos reales
-3. **Importante:** Incluye el CONTEXT_FILE completo (todo el YAML de Fase 1)
+1. Después de completar los inputs con el contenido REAL
+2. Copia **TODO** el contenido del archivo `prompt_fase2_generacion_cv_docx_v2.md` (desde línea 1 hasta el final)
+3. **Verifica que:**
+   - ✅ El CONTEXT_FILE completo está pegado (todo el YAML)
+   - ✅ El CV completo está pegado
+   - ✅ La JD completa está pegada
 
 ### Paso 4: Pegar en Cowork
 
@@ -246,6 +278,32 @@ IDIOMA_OUTPUT: "auto"
 ---
 
 ## 🚨 ERRORES COMUNES
+
+### ❌ Error Crítico: "Cowork no leyó el prompt completo"
+**Causa:** Cowork tiene límites de contexto y puede no procesar todo el prompt.
+**Solución:** 
+- Asegúrate de pegar TODO el prompt (desde línea 1 hasta el final)
+- Si el prompt es muy largo, considera dividirlo en dos mensajes
+- Verifica que Cowork haya leído las instrucciones de OUTPUT
+
+### ❌ Error Crítico: "Cowork generó archivos en la raíz en lugar de sessions/ u outputs/"
+**Causa:** Cowork no leyó las rutas absolutas o las ignoró.
+**Solución:**
+- Mueve manualmente los archivos:
+  ```bash
+  mv context_*.yaml sessions/
+  mv analisis_*.md sessions/
+  mv CV_*.md outputs/
+  mv CV_*.docx outputs/
+  ```
+- En tu próximo prompt, **enfatiza** la ruta absoluta al inicio
+
+### ❌ Error Crítico: "Cowork dice que no puede acceder a archivos"
+**Causa:** Cowork NO tiene acceso a tus archivos locales.
+**Solución:**
+- **NO escribas** "usa el archivo resumes_txt/CV_Julio_Gonzales - SPA.txt"
+- **SÍ copia** TODO el contenido del archivo y pégalo en el prompt
+- Cowork solo puede trabajar con el texto que le pegues
 
 ### Error 1: "El LLM no genera los archivos"
 **Solución:** Asegúrate de copiar **TODO** el prompt, incluyendo las instrucciones de outputs.
