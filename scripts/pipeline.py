@@ -238,6 +238,13 @@ Después ejecuta: python scripts/pipeline.py fase2 --context sessions/context_{s
             context_data = yaml.safe_load(f)
 
         session_id = context_data['session_id']
+        
+        # Extraer nombre completo del candidato del context file
+        candidate_full_name = context_data.get('cv_original', {}).get('candidate_name', '')
+        
+        if not candidate_full_name:
+            self.log("⚠️  Advertencia: No se encontró 'candidate_name' en el context file", "WARNING")
+            candidate_full_name = "Candidate"
 
         # Extraer company y position slugs del session_id
         # Formato: YYYYMMDD_CompanySlug_PositionSlug
@@ -252,8 +259,14 @@ Después ejecuta: python scripts/pipeline.py fase2 --context sessions/context_{s
             company_slug = company.replace(' ', '').replace('-', '')
             position_slug = position.replace(' ', '').replace('-', '')
 
+        # Importar la función de formato de nombre
+        from config import format_cv_filename
+        
+        # Generar nombre de archivo usando la nueva función
+        cv_basename = format_cv_filename(candidate_full_name, company_slug, position_slug)
+        
         # Buscar CV en Markdown en outputs/
-        md_filename = f"CV_Gonzales_{company_slug}_{position_slug}.md"
+        md_filename = f"{cv_basename}.md"
         md_path = get_output_path(md_filename)
 
         if not md_path.exists():
