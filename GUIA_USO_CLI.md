@@ -519,6 +519,6 @@ python scripts/generate_cv_docx.py --help
 
 ---
 
-**Desarrollado por:** Julio - Agile Coach Expert
+**Desarrollado por:** Julio Gonzales - Numen Coaching & Consulting
 **Versión:** 2.1
 **Última actualización:** 21 de enero, 2026

@@ -347,7 +347,7 @@ Para dudas sobre las mejoras v2.1:
 
 ---
 
-**Desarrollado por:** Julio - Agile Coach Expert
+**Desarrollado por:** Julio Gonzales - Numen Coaching & Consulting
 **Con asistencia de:** Claude Sonnet 4.5
 **Fecha:** 21 de enero, 2026
 **Versión:** 2.1

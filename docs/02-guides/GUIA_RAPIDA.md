@@ -288,4 +288,4 @@ def pipeline_cv(jd, cv, salary):
 
 **Última actualización:** 21 de enero, 2026  
 **Versión del sistema:** 2.0  
-**Desarrollado por:** Julio - Agile Coach Expert
+**Desarrollado por:** Julio Gonzales - Numen Coaching & Consulting

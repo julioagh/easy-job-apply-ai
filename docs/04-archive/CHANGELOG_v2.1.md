@@ -290,6 +290,6 @@ Uso personal
 
 ---
 
-**Desarrollado por:** Julio - Agile Coach Expert
+**Desarrollado por:** Julio Gonzales - Numen Coaching & Consulting
 **Versión:** 2.1
 **Fecha:** 21 de enero, 2026

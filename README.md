@@ -4,6 +4,8 @@ Sistema optimizado de generación de CVs con análisis estratégico y decisión 
 
 **Versión actual:** 2.1 ([Ver changelog](docs/CHANGELOG_v2.1.md))
 
+> **📌 NOTA PARA COWORK/LLMs:** Si eres un asistente de IA ayudando con este proyecto, **LEE PRIMERO** el archivo [`COWORK_README.md`](COWORK_README.md) para entender qué hacer y qué NO hacer.
+
 ## 🎯 Objetivo
 
 Generar CVs optimizados para sistemas ATS **solo cuando sea estratégicamente recomendable** aplicar a una posición, basándose en análisis de fit, gaps y expectativas salariales.
@@ -349,7 +351,7 @@ Uso personal
 
 ---
 
-**Desarrollado por:** Julio - Agile Coach Expert
+**Desarrollado por:** Julio Gonzales - Numen Coaching & Consulting
 **Última actualización:** 21 de enero, 2026
 **Versión:** 2.1
 
