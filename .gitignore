@@ -11,11 +11,16 @@ outputs/*.docx
 outputs/*.md
 outputs/*.pages
 outputs/*.pdf
+outputs/*.txt
 !outputs/README.md
 
 # CVs personales (información sensible)
 resumes_txt/*.txt
 !resumes_txt/README.md
+
+# CVs base/master (información personal)
+resumes_base/
+!resumes_base/README.md
 
 # Templates personalizados (pueden ser privados)
 templates/*.docx
