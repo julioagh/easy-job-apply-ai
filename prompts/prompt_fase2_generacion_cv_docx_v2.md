@@ -3,7 +3,7 @@
 ## METADATA
 - **Versión**: 2.0 (Optimizada - Fusión Fase 2 + 3)
 - **Fecha creación**: 21 de enero, 2026
-- **Autor**: Julio - Agile Coach Expert
+- **Autor**: Julio Gonzales - Numen Coaching & Consulting
 - **Propósito**: Generación directa de CV en formato .docx optimizado para ATS (máx 2 páginas)
 - **Dependencia**: Requiere Fase 1 con recomendación "PROCEDER"
 - **Cambios v2.0**:
@@ -24,43 +24,61 @@ Si Fase 1 recomendó "RECONSIDERAR" o "NO_APLICAR", **NO ejecutar esta fase**.
 
 ---
 
-## 📝 NOTA IMPORTANTE SOBRE EL OUTPUT
+## 📝 TU TAREA: GENERAR SOLO EL MARKDOWN
 
-**⚠️ IMPORTANTE PARA COWORK/LLMs:**
+**⚠️ INSTRUCCIONES CLARAS:**
 
-**TU TAREA ES SOLO GENERAR EL ARCHIVO MARKDOWN.** NO intentes ejecutar el script Python.
+### ✅ LO QUE DEBES HACER:
 
-**Proceso:**
+**Genera ÚNICAMENTE el contenido del CV optimizado en formato Markdown** y guárdalo en:
 
-1. ✅ **TÚ GENERAS:** Contenido optimizado en Markdown
-   - **Ruta absoluta:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md`
-   - **Formato requerido:**
-     ```markdown
-     # NOMBRE COMPLETO DEL CANDIDATO
-     
-     Ciudad, País | +Teléfono | email@domain.com | LinkedIn: url
-     
-     ---
-     
-     ## PROFESSIONAL SUMMARY
-     [Contenido del summary...]
-     
-     ## PROFESSIONAL EXPERIENCE
-     [Contenido de experiencia...]
-     ```
+**Ruta:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/outputs/CV_{PRIMER_NOMBRE}{PRIMER_APELLIDO}_{EMPRESA}_{POSICION}.md`
 
-2. ❌ **TÚ NO EJECUTAS:** El script Python `md_to_docx.py`
-   - El USUARIO ejecutará el script manualmente después
-   - Solo menciona al usuario que debe ejecutar:
-     ```bash
-     python3 scripts/md_to_docx.py outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md
-     ```
+**Ejemplo:** `CV_JulioGonzales_Entel_AgileCoach.md` (para "Julio Alberto Gonzales Heredia")
 
-**El script `md_to_docx.py` (ejecutado por el usuario) aplica:**
+**Formato del Markdown:**
+```markdown
+# NOMBRE COMPLETO DEL CANDIDATO
+
+Ciudad, País | +Teléfono | email@domain.com | LinkedIn: url
+
+---
+
+## PROFESSIONAL SUMMARY
+[Contenido del summary optimizado con keywords...]
+
+## PROFESSIONAL EXPERIENCE
+[Experiencia profesional optimizada...]
+
+## KEY COMPETENCIES
+[Competencias clave...]
+
+## EDUCATION & CERTIFICATIONS
+[Formación y certificaciones...]
+
+## LANGUAGES
+[Idiomas...]
+```
+
+### ❌ LO QUE NO DEBES HACER:
+
+- **NO intentes crear un script Python** para generar el DOCX
+- **NO intentes ejecutar ningún script** Python
+- **NO intentes generar el archivo DOCX** directamente
+
+### 📌 INFORMACIÓN IMPORTANTE:
+
+**Ya existe un script Python (`scripts/md_to_docx.py`) que convierte el Markdown a DOCX.**
+
+El usuario ejecutará este comando después de que generes el Markdown:
+```bash
+python3 scripts/md_to_docx.py outputs/CV_{PRIMER_NOMBRE}{PRIMER_APELLIDO}_{EMPRESA}_{POSICION}.md
+```
+
+Este script automáticamente aplica:
 - Márgenes: 1.22 cm en todos los lados
 - Fuentes: Arial con tamaños exactos (18pt nombre, 12pt headers, 9pt bullets, 9.5pt summary)
-- Formato ATS-friendly: Sin tablas complejas, bullets simples
-- Estructura profesional: Espaciado correcto entre secciones
+- Formato ATS-friendly profesional
 
 ---
 
@@ -626,7 +644,7 @@ python3 scripts/md_to_docx.py outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md
 
 ---
 
-**Desarrollado por:** Julio - Agile Coach Expert  
+**Desarrollado por:** Julio Gonzales - Numen Coaching & Consulting
 **Para:** Generación de CVs optimizados para ATS sin comprometer integridad  
 **Requisito:** Completar Fase 1 con recomendación "PROCEDER"  
 **Licencia:** Uso personal

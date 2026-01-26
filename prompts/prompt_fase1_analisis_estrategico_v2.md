@@ -3,7 +3,7 @@
 ## METADATA
 - **Versión**: 2.0 (Optimizada)
 - **Fecha creación**: 21 de enero, 2026
-- **Autor**: Julio - Agile Coach Expert
+- **Autor**: Julio Gonzales - Numen Coaching & Consulting
 - **Propósito**: Análisis estratégico de fit, gaps y decisión de aplicación
 - **Cambios v2.0**: 
   - Agregado output de context file YAML
@@ -13,6 +13,23 @@
 ---
 
 # FASE 1: ANÁLISIS ESTRATÉGICO Y DECISIÓN DE APLICACIÓN
+
+## 📌 CONTEXTO DEL PROYECTO
+
+**Este proyecto ya tiene infraestructura completa:**
+
+- ✅ **Script de conversión MD → DOCX**: `scripts/md_to_docx.py` (ya existe, no crear uno nuevo)
+- ✅ **Pipeline automatizado**: `scripts/pipeline.py` (maneja Fase 1 y Fase 2)
+- ✅ **Validador de YAML**: `scripts/validate_yaml.py`
+- ✅ **Configuración centralizada**: `scripts/config.py`
+
+**Tu tarea en Fase 1 es SOLO generar los archivos de análisis:**
+1. Context file YAML → `sessions/context_{SESSION_ID}.yaml`
+2. Análisis Markdown → `sessions/analisis_{SESSION_ID}.md`
+
+**NO necesitas crear scripts Python.** Todo ya está implementado.
+
+---
 
 ## ROL DEL ASISTENTE
 
@@ -372,7 +389,7 @@ Antes de entregar outputs, verificar:
 
 ---
 
-**Desarrollado por:** Julio - Agile Coach Expert  
+**Desarrollado por:** Julio Gonzales - Numen Coaching & Consulting
 **Para:** Optimización estratégica de aplicaciones laborales  
 **Licencia:** Uso personal
 
