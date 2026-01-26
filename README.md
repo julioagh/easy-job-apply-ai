@@ -181,7 +181,7 @@ cp .env.example .env
 # Preparar Fase 1 completa
 python scripts/pipeline.py fase1 \
   --jd examples/example_jd.txt \
-  --cv resumes_txt/CV_Julio_Gonzales-SPA.txt \
+  --cv resumes_base/CV_Julio_Gonzales-SPA.txt \
   --salary "USD 5000-6000" \
   --company "AttachGroup" \
   --position "Agile Coach"

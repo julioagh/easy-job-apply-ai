@@ -79,7 +79,7 @@ python scripts/pipeline.py fase1 \
 ```bash
 python scripts/pipeline.py fase1 \
   --jd examples/example_jd_attach_group.txt \
-  --cv resumes_txt/CV_Julio_Gonzales-SPA.txt \
+  --cv resumes_base/CV_Julio_Gonzales-SPA.txt \
   --salary "USD 5000-6000" \
   --company "AttachGroup" \
   --position "Agile Coach" \
@@ -322,7 +322,7 @@ source venv/bin/activate
 # 2. Preparar Fase 1
 python scripts/pipeline.py fase1 \
   --jd job_descriptions/amazon_senior_agile.txt \
-  --cv resumes_txt/CV_Julio_Gonzales-ENG.txt \
+  --cv resumes_base/CV_Julio_Gonzales-ENG.txt \
   --salary "USD 7000-9000" \
   --company "Amazon" \
   --position "Senior Agile Coach" \

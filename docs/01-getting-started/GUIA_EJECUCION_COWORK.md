@@ -24,7 +24,7 @@
 Antes de comenzar, **ABRE Y COPIA** el contenido de estos archivos:
 
 1. ✅ **Job Description (JD)** completa de la posición → Copia el texto completo
-2. ✅ **Tu CV actual** → Abre `resumes_txt/CV_Julio_Gonzales - SPA.txt` o `CV - Julio Gonzales - ENG.txt` y copia TODO el contenido
+2. ✅ **Tu CV actual** → Abre `resumes_base/CV_Julio_Gonzales - SPA.txt` o `CV - Julio Gonzales - ENG.txt` y copia TODO el contenido
 3. ✅ **Tu expectativa salarial** → Ten claro el rango
 4. ✅ **Modalidad de trabajo** → Remoto LATAM / Híbrido Lima / Lima Perú
 5. ✅ **Moneda de la oferta** → USD / PEN / EUR / etc.
@@ -47,8 +47,8 @@ JD_TEXT: |
   # Ejemplo: Copia desde "Empresa X busca..." hasta el final de la oferta
 
 CV_TEXT: |
-  {COPIAR TODO EL CONTENIDO DEL ARCHIVO resumes_txt/CV_Julio_Gonzales - SPA.txt}
-  # NO escribas solo "resumes_txt/CV_Julio_Gonzales - SPA.txt"
+  {COPIAR TODO EL CONTENIDO DEL ARCHIVO resumes_base/CV_Julio_Gonzales - SPA.txt}
+  # NO escribas solo "resumes_base/CV_Julio_Gonzales - SPA.txt"
   # Debes ABRIR el archivo y COPIAR todo su contenido aquí
 
 SALARY_EXPECTATIONS: "S/ 15,000 - S/ 17,000"
@@ -123,7 +123,7 @@ CONTEXT_FILE: |
   # Debes ABRIR el archivo YAML generado en Fase 1 y COPIAR todo su contenido
 
 CV_ORIGINAL: |
-  {COPIAR TODO EL CONTENIDO DEL ARCHIVO resumes_txt/CV_Julio_Gonzales - SPA.txt}
+  {COPIAR TODO EL CONTENIDO DEL ARCHIVO resumes_base/CV_Julio_Gonzales - SPA.txt}
   # El MISMO CV que usaste en Fase 1
   # Debes ABRIR el archivo y COPIAR todo su contenido aquí
 
@@ -203,7 +203,7 @@ JD_TEXT: |
   [... resto de la JD ...]
 
 CV_TEXT: |
-  {Contenido completo de resumes_txt/CV_Julio_Gonzales - SPA.txt}
+  {Contenido completo de resumes_base/CV_Julio_Gonzales - SPA.txt}
 
 SALARY_EXPECTATIONS: "S/ 15,000 - S/ 17,000"
 LOCATION: "Híbrido (Lima)"
@@ -225,7 +225,7 @@ CONTEXT_FILE: |
   {TODO el contenido de context_20260121_AttachGroup_AgileCoach.yaml}
 
 CV_ORIGINAL: |
-  {Contenido completo de resumes_txt/CV_Julio_Gonzales - SPA.txt}
+  {Contenido completo de resumes_base/CV_Julio_Gonzales - SPA.txt}
 
 JD_COMPLETA: |
   {Misma JD de Fase 1}
@@ -243,7 +243,7 @@ IDIOMA_OUTPUT: "auto"
 
 ### Antes de Empezar
 - [ ] Tengo la JD completa
-- [ ] Tengo mi CV actualizado en `resumes_txt/`
+- [ ] Tengo mi CV actualizado en `resumes_base/`
 - [ ] Sé mi expectativa salarial
 - [ ] Identifiqué la moneda de la oferta
 - [ ] Identifiqué la modalidad de trabajo
@@ -301,7 +301,7 @@ IDIOMA_OUTPUT: "auto"
 ### ❌ Error Crítico: "Cowork dice que no puede acceder a archivos"
 **Causa:** Cowork NO tiene acceso a tus archivos locales.
 **Solución:**
-- **NO escribas** "usa el archivo resumes_txt/CV_Julio_Gonzales - SPA.txt"
+- **NO escribas** "usa el archivo resumes_base/CV_Julio_Gonzales - SPA.txt"
 - **SÍ copia** TODO el contenido del archivo y pégalo en el prompt
 - Cowork solo puede trabajar con el texto que le pegues
 

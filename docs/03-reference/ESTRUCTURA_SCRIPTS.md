@@ -62,7 +62,7 @@ python scripts/md_to_docx.py outputs/CV_input.md -o CV_Custom.docx
 ```bash
 python scripts/pipeline.py fase1 \
   --jd jds_input/Company_Position.txt \
-  --cv resumes_txt/CV_Julio_Gonzales-SPA.txt \
+  --cv resumes_base/CV_Julio_Gonzales-SPA.txt \
   --salary "USD 4000-5500" \
   --company "Company Name" \
   --position "Position Title"

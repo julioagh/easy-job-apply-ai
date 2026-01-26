@@ -202,7 +202,7 @@ python scripts/validate_yaml.py sessions/context_*.yaml
 # En lugar de ejecutar manualmente cada fase
 python scripts/pipeline.py fase1 \
   --jd examples/example_jd.txt \
-  --cv resumes_txt/CV_Julio_Gonzales-SPA.txt \
+  --cv resumes_base/CV_Julio_Gonzales-SPA.txt \
   --salary "USD 5000-6000" \
   --company "Company" \
   --position "Position"

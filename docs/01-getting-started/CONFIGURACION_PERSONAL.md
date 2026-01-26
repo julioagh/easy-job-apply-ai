@@ -7,11 +7,11 @@ Este documento describe la configuración específica para tu uso del sistema de
 ## 📋 Configuración de Inputs
 
 ### CV Actual
-**Ubicación:** `resumes_txt/`
+**Ubicación:** `resumes_base/`
 
 Tienes **2 versiones** de tu CV en formato .txt:
-- ✅ **Español:** `resumes_txt/CV_Julio_Gonzales - SPA.txt`
-- ✅ **Inglés:** `resumes_txt/CV - Julio Gonzales - ENG.txt`
+- ✅ **Español:** `resumes_base/CV_Julio_Gonzales - SPA.txt`
+- ✅ **Inglés:** `resumes_base/CV - Julio Gonzales - ENG.txt`
 
 **Uso:**
 - Selecciona la versión que corresponda al **idioma de la JD**

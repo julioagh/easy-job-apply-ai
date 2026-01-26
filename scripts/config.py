@@ -16,7 +16,7 @@ PROJECT_ROOT = Path(__file__).parent.parent
 OUTPUTS_DIR = PROJECT_ROOT / os.getenv('OUTPUTS_DIR', 'outputs')
 SESSIONS_DIR = PROJECT_ROOT / os.getenv('SESSIONS_DIR', 'sessions')
 TEMPLATES_DIR = PROJECT_ROOT / os.getenv('TEMPLATES_DIR', 'templates')
-RESUMES_DIR = PROJECT_ROOT / os.getenv('RESUMES_DIR', 'resumes_txt')
+RESUMES_DIR = PROJECT_ROOT / os.getenv('RESUMES_DIR', 'resumes_base')
 SCRIPTS_DIR = PROJECT_ROOT / 'scripts'
 
 # Crear directorios si no existen
