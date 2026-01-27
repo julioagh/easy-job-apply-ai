@@ -45,7 +45,7 @@ class TestConfig:
         """Test generación de ruta de CV"""
         path = get_resume_path('cv.txt')
         assert path.name == 'cv.txt'
-        assert 'resumes_txt' in str(path)
+        assert 'resumes_base' in str(path)
 
     def test_cv_margins(self):
         """Test valor de márgenes"""
