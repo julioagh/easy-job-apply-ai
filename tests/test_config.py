@@ -58,7 +58,7 @@ class TestConfig:
         assert 'body' in CV_FONT_SIZES
         assert CV_FONT_SIZES['nombre'] == 18
         assert CV_FONT_SIZES['header'] == 12
-        assert CV_FONT_SIZES['body'] == 9
+        assert CV_FONT_SIZES['body'] == 9.5
 
     def test_default_font(self):
         """Test fuente por defecto"""
