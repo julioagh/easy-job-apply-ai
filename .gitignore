@@ -52,6 +52,11 @@ venv/
 env/
 .env
 
+# Archivos de testing
+.coverage
+.pytest_cache/
+htmlcov/
+
 # Node (si se crea interfaz web)
 node_modules/
 npm-debug.log*
