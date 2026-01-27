@@ -53,9 +53,9 @@ JD_TEXT: |
 
 CV_TEXT: |
   {Pegar aquí el contenido de tu CV actual}
-  # Español: resumes_txt/CV_Julio_Gonzales - SPA.txt
-  # Inglés: resumes_txt/CV - Julio Gonzales - ENG.txt
-  # Usar la versión que corresponda al idioma de la JD
+  # Español: resumes_base/CV_JulioGonzales_MASTER_2025.md
+  # Inglés: resumes_base/CV_JulioGonzales_MASTER_2025_ENG.md
+  # Usar la versión que corresponda al idioma de la JD para ahorrar tokens
 
 SALARY_EXPECTATIONS: |
   {Expectativa salarial bruta mensual en moneda de la oferta}

@@ -10,8 +10,8 @@ Este documento describe la configuración específica para tu uso del sistema de
 **Ubicación:** `resumes_base/`
 
 Tienes **2 versiones** de tu CV en formato .txt:
-- ✅ **Español:** `resumes_base/CV_Julio_Gonzales - SPA.txt`
-- ✅ **Inglés:** `resumes_base/CV - Julio Gonzales - ENG.txt`
+- ✅ **Español:** `resumes_base/CV_JulioGonzales_MASTER_2025.md`
+- ✅ **Inglés:** `resumes_base/CV_JulioGonzales_MASTER_2025_ENG.md`
 
 **Uso:**
 - Selecciona la versión que corresponda al **idioma de la JD**
