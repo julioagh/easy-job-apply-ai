@@ -301,20 +301,36 @@ ARCHIVO ESPERADO:
 
             return False, None
 
-        # Convertir MD a DOCX usando el script genérico
+        # Convertir MD a DOCX usando el nuevo conversor JS (estilo v2 — Calibri, navy palette)
         print(f"📄 CV Markdown encontrado: {md_path}")
-        print("🔄 Convirtiendo a formato DOCX...")
+        print("🔄 Convirtiendo a formato DOCX (estilo v2)...")
+
+        docx_path = Path(str(md_path).replace('.md', '.docx'))
 
         try:
-            from md_to_docx import create_docx_from_markdown
+            import subprocess
+            script_path = Path(__file__).parent / "md_to_docx_v2.js"
 
-            docx_path = create_docx_from_markdown(str(md_path))
+            result = subprocess.run(
+                ["node", str(script_path), str(md_path), str(docx_path)],
+                capture_output=True, text=True
+            )
+
+            if result.returncode != 0:
+                # Fallback al conversor Python si node/JS no disponible
+                print(f"⚠️  Conversor JS no disponible, usando conversor Python...")
+                if result.stderr:
+                    print(result.stderr[:200])
+                from md_to_docx import create_docx_from_markdown
+                docx_path = create_docx_from_markdown(str(md_path))
+            else:
+                print(result.stdout.strip())
 
             print(f"✅ CV DOCX generado exitosamente: {docx_path}")
             print("\n" + "="*60)
             print("FASE 2 COMPLETADA")
             print(f"📄 CV Markdown: {md_path}")
-            print(f"📄 CV DOCX: {docx_path}")
+            print(f"📄 CV DOCX:     {docx_path}")
             print("="*60)
 
             return True, docx_path

@@ -1,12 +1,19 @@
 # Prompt Parametrizable - Fase 2: Generación de CV DOCX Optimizado
 
 ## METADATA
-- **Versión**: 2.0 (Optimizada - Fusión Fase 2 + 3)
+- **Versión**: 2.2 (Pipeline Node.js — Calibri/Navy)
 - **Fecha creación**: 21 de enero, 2026
+- **Última actualización**: 9 de marzo, 2026
 - **Autor**: Julio Gonzales - Numen Coaching & Consulting
 - **Propósito**: Generación directa de CV en formato .docx optimizado para ATS (máx 2 páginas)
 - **Dependencia**: Requiere Fase 1 con recomendación "PROCEDER"
-- **Cambios v2.0**:
+- **Cambios v2.2**:
+  - Conversor DOCX migrado de Python (`md_to_docx.py`) a Node.js (`md_to_docx_v2.js`)
+  - Fuente: Arial → **Calibri**
+  - Márgenes: 1.22 cm → **0.75 in (1.9 cm)**
+  - Paleta de color profesional navy/blue (nombres, headers, separadores)
+  - Template de referencia: `templates/CV_Template_v2.docx`
+- **Cambios v2.0–2.1**:
   - Fusión de optimización de contenido + generación DOCX
   - Soporte para context file (reduce tokens 60%)
   - Límite estricto de 2 páginas con estrategia de priorización
@@ -68,17 +75,20 @@ Ciudad, País | +Teléfono | email@domain.com | LinkedIn: url
 
 ### 📌 INFORMACIÓN IMPORTANTE:
 
-**Ya existe un script Python (`scripts/md_to_docx.py`) que convierte el Markdown a DOCX.**
+**Ya existe un script Node.js (`scripts/md_to_docx_v2.js`) que convierte el Markdown a DOCX con el nuevo estilo profesional.**
 
 El usuario ejecutará este comando después de que generes el Markdown:
 ```bash
-python3 scripts/md_to_docx.py outputs/CV_{PRIMER_NOMBRE}{PRIMER_APELLIDO}_{EMPRESA}_{POSICION}.md
+node scripts/md_to_docx_v2.js outputs/CV_{PRIMER_NOMBRE}{PRIMER_APELLIDO}_{EMPRESA}_{POSICION}.md
 ```
 
 Este script automáticamente aplica:
-- Márgenes: 1.22 cm en todos los lados
-- Fuentes: Arial con tamaños exactos (18pt nombre, 12pt headers, 9pt bullets, 9.5pt summary)
+- Márgenes: 0.75 in (1.9 cm) en todos los lados
+- Fuente: **Calibri** con tamaños exactos (18pt nombre, 12pt headers, 9.5pt body/bullets)
+- Paleta navy/blue: nombre en `#1F3864`, headers en `#1F4E79`, separadores en `#2E75B6`
+- Bullets nativos de Word (LevelFormat.BULLET) — ATS-friendly
 - Formato ATS-friendly profesional
+- Template de referencia: `templates/CV_Template_v2.docx`
 
 ---
 
@@ -232,31 +242,39 @@ IDIOMA_OUTPUT: "español"
 
 ---
 
-### 🎨 4. FORMATO DOCX (EXACTO AL TEMPLATE)
+### 🎨 4. FORMATO DOCX (EXACTO AL TEMPLATE v2)
 
 **MÁRGENES (CRÍTICO):**
-```python
-section.top_margin = Cm(1.22)
-section.bottom_margin = Cm(1.22)
-section.left_margin = Cm(1.22)
-section.right_margin = Cm(1.22)
+```javascript
+// Node.js — docx library
+margins: { top: 1080, bottom: 1080, left: 1080, right: 1080 }
+// = 0.75 in (1.9 cm) en todos los lados
 ```
 
+**PALETA DE COLORES:**
+| Elemento | Color | Hex |
+|----------|-------|-----|
+| Nombre | Azul marino oscuro | `#1F3864` |
+| Headers de sección | Azul navy | `#1F4E79` |
+| Línea separadora | Azul medio | `#2E75B6` |
+| AI Projects label | Verde oscuro | `#1B5E20` |
+| Texto normal | Negro | `#000000` |
+
 **TAMAÑOS DE FUENTE:**
-- **Nombre (Header):** 18pt, Bold
-- **Contacto:** 9pt, Normal
-- **Headers de sección:** 12pt, Bold, UPPERCASE
+- **Nombre (Header):** 18pt, Bold, color `#1F3864`
+- **Contacto:** 9pt, Normal, negro
+- **Headers de sección:** 12pt, Bold, UPPERCASE, color `#1F4E79`, con borde inferior `#2E75B6`
 - **Summary (párrafo):** 9.5pt, Normal
-- **Empresa | Cargo Periodo:** 9pt, Normal (NO Bold)
-- **Bullets (•):** 9pt, Normal
+- **Empresa | Cargo | Periodo:** 9.5pt — empresa Bold, cargo Normal, periodo Normal alineado a la derecha con tab stop
+- **Bullets (•):** 9.5pt, Normal, bullet nativo Word
 - **Texto descriptivo:** 9.5pt, Normal
 
 **Otros elementos:**
-- Fuente: Arial
-- Bullets: "•" (Alt+0149)
-- Espaciado: 1 línea entre secciones
+- Fuente: **Calibri** (en toda sección)
+- Bullets: nativos Word (`LevelFormat.BULLET`) — NO texto "•"
+- Espaciado entre párrafos: 40–60 twips (espaciado compacto)
 - Alineación: Izquierda
-- Sin colores, bordes o tablas
+- Template de referencia: `templates/CV_Template_v2.docx`
 
 ---
 
@@ -381,103 +399,106 @@ Ejemplo:
 
 ### PASO 3: Generación del DOCX
 
-**3.1 Configurar documento:**
-```python
-from docx import Document
-from docx.shared import Pt, Cm
+**⚠️ NO generes código Python para crear el DOCX. El conversor ya existe en Node.js.**
 
-doc = Document()
+El script `scripts/md_to_docx_v2.js` toma el Markdown generado y produce automáticamente el DOCX con el estilo correcto. Solo necesitas asegurarte de que el Markdown esté bien formateado.
 
-# MÁRGENES EXACTOS
-section = doc.sections[0]
-section.top_margin = Cm(1.22)
-section.bottom_margin = Cm(1.22)
-section.left_margin = Cm(1.22)
-section.right_margin = Cm(1.22)
+**3.1 Estructura de Markdown esperada por el conversor:**
+```markdown
+# NOMBRE COMPLETO EN MAYÚSCULAS
+
+Ciudad, País  |  +Teléfono  |  email@domain.com  |  LinkedIn: url
+
+---
+
+## PROFESSIONAL SUMMARY
+Párrafo del summary...
+
+## AI PRODUCT WORK  ← sección CONDICIONAL — leer criterios antes de incluir
+
+⚠️ CRITERIOS DE USO — solo incluir esta sección si SE CUMPLEN AMBAS condiciones:
+  1. El trabajo es VERDADERAMENTE INDEPENDIENTE: proyectos freelance propios, herramientas
+     personales construidas fuera de un empleador, experimentos IA como consultor autónomo.
+  2. La JD valora explícitamente trabajo independiente, side projects, o AI fluency hands-on
+     que no puede demostrarse suficientemente dentro de la experiencia laboral.
+
+❌ NO incluir si el trabajo de IA fue realizado DENTRO de un rol de empleado (aunque sea
+   innovador o especial). En ese caso, ese trabajo va como bullet en PROFESSIONAL EXPERIENCE
+   bajo la empresa correspondiente.
+
+✅ Ejemplos válidos para esta sección:
+   - Herramienta de automatización construida personalmente (fuera del horario laboral)
+   - Prototipo IA desarrollado como consultor independiente para cliente propio
+   - Proyecto open source o experimento personal con LLMs/APIs
+
+❌ Ejemplos que NO van aquí:
+   - Piloto IA liderado como empleado de BBVA → va en BBVA dentro de PROFESSIONAL EXPERIENCE
+   - Proyecto de automatización encargado por tu empleador → va en PROFESSIONAL EXPERIENCE
+
+### Nombre Proyecto — Subtítulo descriptivo
+**Contexto:** breve descripción del proyecto y año
+**Rol:** qué hiciste específicamente
+**Herramientas:** stack utilizado
+**Impacto:** resultado medible o aprendizaje clave
+
+## PROFESSIONAL EXPERIENCE
+### EMPRESA | Ciudad, País
+**Cargo** | Mes Año - Mes Año
+
+• bullet de logro cuantificado
+• bullet de logro cuantificado
+
+## KEY COMPETENCIES
+**Categoría:** item1, item2, item3
+
+## EDUCATION & CERTIFICATIONS
+Institución — Grado/Cert — Año
+
+## LANGUAGES
+- Idioma: Nivel
 ```
 
-**3.2 Aplicar formato por sección:**
-```python
-# NOMBRE
-nombre = doc.add_paragraph()
-run = nombre.add_run('JULIO ALBERTO GONZALES HEREDIA')
-run.font.name = 'Arial'
-run.font.size = Pt(18)
-run.font.bold = True
-
-# CONTACTO
-contacto = doc.add_paragraph()
-run = contacto.add_run('Lima, Perú | +51 XXX | email@domain.com')
-run.font.name = 'Arial'
-run.font.size = Pt(9)
-
-# HEADER DE SECCIÓN
-header = doc.add_paragraph()
-run = header.add_run('PROFESSIONAL SUMMARY')  # o traducido
-run.font.name = 'Arial'
-run.font.size = Pt(12)
-run.font.bold = True
-
-# SUMMARY
-summary = doc.add_paragraph()
-run = summary.add_run('Texto del summary optimizado...')
-run.font.name = 'Arial'
-run.font.size = Pt(9.5)
-
-# EMPRESA | CARGO
-empresa = doc.add_paragraph()
-run = empresa.add_run('BBVA PERÚ | Agile Coach Expert 2022-2025')
-run.font.name = 'Arial'
-run.font.size = Pt(9)
-# NO aplicar bold
-
-# BULLETS
-bullet = doc.add_paragraph()
-run = bullet.add_run('• Lideré transformación ágil de 28 equipos...')
-run.font.name = 'Arial'
-run.font.size = Pt(9)
+**3.2 Referencia de colores aplicados automáticamente:**
+```javascript
+// Estos colores se aplican solos — no hace falta especificarlos en el MD
+C_NAME    = "1F3864"  // Nombre del candidato
+C_SECTION = "1F4E79"  // Headers de sección (##)
+C_DIVIDER = "2E75B6"  // Línea decorativa bajo headers
+C_AI      = "1B5E20"  // Label "AI PRODUCT WORK"
 ```
 
-**3.3 Detectar y aplicar idioma:**
-```python
-# Detectar idioma de JD
-if "Requisitos" in jd_text or "Funciones" in jd_text:
-    idioma = "español"
-    headers = {
-        "summary": "RESUMEN PROFESIONAL",
-        "experience": "EXPERIENCIA PROFESIONAL",
-        "skills": "COMPETENCIAS CLAVE",
-        "tools": "HERRAMIENTAS Y PLATAFORMAS",
-        "education": "FORMACIÓN Y CERTIFICACIONES",
-        "languages": "IDIOMAS"
-    }
-else:
-    idioma = "inglés"
-    headers = {
-        "summary": "PROFESSIONAL SUMMARY",
-        "experience": "PROFESSIONAL EXPERIENCE",
-        "skills": "KEY COMPETENCIES",
-        "tools": "TOOLS & PLATFORMS",
-        "education": "EDUCATION & CERTIFICATIONS",
-        "languages": "LANGUAGES"
-    }
+**3.3 Idioma de los headers — REGLA:**
+El idioma del CV debe coincidir con el idioma de la JD.
+El conversor detecta automáticamente el idioma según los headers que uses y aplica los títulos de sección correspondientes en el DOCX.
 
-# Traducir contenido de bullets si es necesario
+REGLA: Si la JD está en ESPAÑOL → usar headers en ESPAÑOL. Si la JD está en INGLÉS → usar headers en INGLÉS.
+
 ```
+ESPAÑOL (JD en español):          INGLÉS (JD en inglés):
+## RESUMEN PROFESIONAL            ## PROFESSIONAL SUMMARY
+## EXPERIENCIA PROFESIONAL        ## PROFESSIONAL EXPERIENCE
+## COMPETENCIAS CLAVE             ## KEY COMPETENCIES
+## FORMACIÓN Y CERTIFICACIONES    ## EDUCATION & CERTIFICATIONS
+## IDIOMAS                        ## LANGUAGES
+```
+
+NOTA: El layout de cada entrada de experiencia es:
+  Línea 1: ### EMPRESA | Ciudad, País
+  Línea 2: **Cargo** | Mes Año – Mes Año   ← fecha va en la misma línea que el cargo
 
 **3.4 Verificar longitud:**
-```python
-# Si excede 2 páginas:
-# 1. Condensar roles antiguos (máx 2 bullets)
-# 2. Agrupar certificaciones
-# 3. Filtrar competencias/herramientas por relevancia JD
-# 4. Omitir roles >10 años no relevantes
+```
+Si excede 2 páginas en el Markdown:
+1. Condensar roles antiguos (máx 2 bullets)
+2. Agrupar certificaciones en una línea
+3. Filtrar competencias no relacionadas con JD
+4. Omitir roles >10 años si no aportan keywords críticos
 ```
 
-**3.5 Guardar archivo:**
-```python
-output_path = f"./outputs/CV_{candidate_name}_{position_slug}.docx"
-doc.save(output_path)
+**3.5 Comando de conversión:**
+```bash
+node scripts/md_to_docx_v2.js outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md
+# El DOCX se crea automáticamente en la misma carpeta outputs/
 ```
 
 ### PASO 4: Verificación Final
@@ -485,9 +506,12 @@ doc.save(output_path)
 **Checklist de calidad:**
 - [ ] Longitud ≤ 2 páginas
 - [ ] Idioma correcto (mismo que JD)
-- [ ] Márgenes: 1.22 cm en todos los lados
-- [ ] Tamaños de fuente correctos (18pt nombre, 12pt headers, 9pt bullets, 9.5pt summary)
-- [ ] Formato visual idéntico al template
+- [ ] Márgenes: 0.75 in (1.9 cm) en todos los lados
+- [ ] Fuente Calibri en todo el documento
+- [ ] Tamaños de fuente correctos (18pt nombre, 12pt headers, 9.5pt body/bullets)
+- [ ] Paleta navy/blue aplicada (nombre, headers, separadores)
+- [ ] Bullets nativos Word (no texto "•")
+- [ ] Formato visual idéntico a `templates/CV_Template_v2.docx`
 - [ ] Keywords críticos presentes (80% coincidencia)
 - [ ] Contenido 100% fiel al CV original (solo reframing, no invención)
 - [ ] Sin errores ortográficos ni gramaticales
@@ -514,23 +538,25 @@ doc.save(output_path)
 ## 🚨 ERRORES COMUNES A EVITAR
 
 ❌ **NO HAGAS ESTO:**
-1. Usar márgenes default de Word (2.54 cm) → Deben ser 1.22 cm
+1. Usar márgenes default de Word (2.54 cm) → Deben ser 0.75 in (script lo hace automático)
 2. Generar CV en inglés cuando JD está en español (o viceversa)
-3. Poner empresa/cargo en Bold (debe ser Normal 9pt)
-4. Exceder 2 páginas
-5. Inventar experiencia no presente en CV_ORIGINAL
-6. Omitir keywords críticos de la JD
-7. Incluir competencias/herramientas no relacionadas con JD
+3. Intentar crear el DOCX con Python → usar `node scripts/md_to_docx_v2.js`
+4. Usar fuente Arial → es Calibri en toda la v2
+5. Exceder 2 páginas
+6. Inventar experiencia no presente en CV_ORIGINAL
+7. Omitir keywords críticos de la JD
+8. Incluir competencias/herramientas no relacionadas con JD
 
 ✅ **SÍ HAZLO:**
-1. Configurar márgenes a 1.22 cm en código
-2. Detectar idioma de JD y traducir TODO el CV a ese idioma
-3. Aplicar tamaños exactos: 18pt nombre, 12pt headers, 9pt empresa/bullets, 9.5pt summary
+1. Generar Markdown limpio con la estructura exacta que espera `md_to_docx_v2.js`
+2. Detectar idioma de JD y usar los headers de sección en el idioma correcto
+3. Aplicar tamaños de fuente correctos en el MD: el script aplica 18pt nombre, 12pt headers, 9.5pt body
 4. Priorizar contenido más relevante a la JD
 5. Condensar roles antiguos si es necesario (máx 2 bullets)
 6. Verificar densidad de keywords (80/20)
 7. Mantener métricas cuantificadas en bullets
 8. Agrupar certificaciones para ahorrar espacio
+9. Ejecutar `node scripts/md_to_docx_v2.js` después de guardar el .md
 
 ---
 
@@ -609,18 +635,19 @@ Antes de generar el CV, verificar:
 - **Ubicación:** `outputs/`
 - Mantener como referencia
 
-**PASO 3: Convertir Markdown a DOCX usando el Script Python**
+**PASO 3: Convertir Markdown a DOCX usando el Script Node.js**
 
 ```bash
-# El script automáticamente detectará el archivo .md en outputs/ y creará el .docx
-python3 scripts/md_to_docx.py outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md
+# El script lee el .md en outputs/ y crea el .docx automáticamente en la misma carpeta
+node scripts/md_to_docx_v2.js outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md
 ```
 
-**El script `md_to_docx.py`:**
+**El script `md_to_docx_v2.js`:**
 - Lee el archivo Markdown de `outputs/`
-- Aplica formato profesional ATS-friendly
-- Guarda el DOCX automáticamente en `outputs/` con el mismo nombre
-- Configura márgenes, fuentes y espaciado correctos
+- Aplica estilo profesional: Calibri, paleta navy/blue, márgenes 0.75 in
+- Bullets nativos Word (ATS-friendly)
+- Guarda el DOCX automáticamente en `outputs/` con el mismo nombre base
+- Template de referencia: `templates/CV_Template_v2.docx`
 
 **PASO 4: Validar Output**
 - Verificar que el archivo `.docx` se creó en `outputs/`
@@ -641,6 +668,7 @@ python3 scripts/md_to_docx.py outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md
 | 1.0 | 2026-01-20 | Versión inicial (Fase 2 separada) |
 | 2.0 | 2026-01-21 | Fusión Fase 2+3, soporte context file, límite 2 páginas, detección idioma |
 | 2.1 | 2026-01-21 | Integración con script Python automatizado para generación DOCX directa |
+| 2.2 | 2026-03-09 | Migración a Node.js (`md_to_docx_v2.js`), fuente Calibri, márgenes 0.75in, paleta navy/blue, bullets nativos Word |
 
 ---
 
