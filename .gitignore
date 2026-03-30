@@ -30,6 +30,9 @@ templates/*.docx
 /CV_*.pdf
 /CV_*.pages
 
+# Contexto personal del usuario (información privada, no versionar)
+CLAUDE.md
+
 # Archivos de sistema
 .DS_Store
 .vscode/
