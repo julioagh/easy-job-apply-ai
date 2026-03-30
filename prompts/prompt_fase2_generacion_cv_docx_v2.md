@@ -1,12 +1,17 @@
 # Prompt Parametrizable - Fase 2: Generación de CV DOCX Optimizado
 
 ## METADATA
-- **Versión**: 2.2 (Pipeline Node.js — Calibri/Navy)
+- **Versión**: 2.4 (Regla crítica años de experiencia)
 - **Fecha creación**: 21 de enero, 2026
-- **Última actualización**: 9 de marzo, 2026
+- **Última actualización**: 21 de marzo, 2026
 - **Autor**: Julio Gonzales - Numen Coaching & Consulting
 - **Propósito**: Generación directa de CV en formato .docx optimizado para ATS (máx 2 páginas)
 - **Dependencia**: Requiere Fase 1 con recomendación "PROCEDER"
+- **Cambios v2.4**:
+  - ⚠️ Regla crítica años de experiencia: NUNCA usar "17 años" vinculado a una función específica
+- **Cambios v2.3**:
+  - Regla de keywords: 80/20 → **60/40 con cap de repetición** (anti-detección IA)
+  - CV_ORIGINAL eliminado como input manual — auto-carga desde `resumes_base/`
 - **Cambios v2.2**:
   - Conversor DOCX migrado de Python (`md_to_docx.py`) a Node.js (`md_to_docx_v2.js`)
   - Fuente: Arial → **Calibri**
@@ -64,7 +69,8 @@ Ciudad, País | +Teléfono | email@domain.com | LinkedIn: url
 [Formación y certificaciones...]
 
 ## LANGUAGES
-[Idiomas...]
+**Español** – Nativo
+**Inglés** – Avanzado (C1)
 ```
 
 ### ❌ LO QUE NO DEBES HACER:
@@ -113,19 +119,16 @@ CONTEXT_FILE: "./context_{SESSION_ID}.yaml"
   # Generado por Fase 1
   # Contiene: keywords críticos, gaps, fortalezas, experiencia a priorizar
 
-CV_ORIGINAL: |
-  {Pegar aquí el contenido de tu CV actual}
-  # Español: resumes_base/CV_JulioGonzales_MASTER_2025.md
-  # Inglés: resumes_base/CV_JulioGonzales_MASTER_2025_ENG.md
-  # Usar la versión que corresponda al idioma de la JD para ahorrar tokens
+# ⚠️ CV_ORIGINAL — NO se pega manualmente. El sistema lo carga automáticamente:
+#   - JD en ESPAÑOL → leer: resumes_base/CV_JulioGonzales_MASTER_2025.md
+#   - JD en INGLÉS  → leer: resumes_base/CV_JulioGonzales_MASTER_2025_ENG.md
+#
+# REGLA: Usar Read tool para leer el archivo directamente ANTES de generar el CV.
+# Solo solicitar al usuario si el archivo NO existe en resumes_base/.
 
 JD_COMPLETA: |
   {Pegar aquí la Job Description completa}
   # Necesario para: detección de idioma y validación de keywords
-
-TEMPLATE_DOCX: "./templates/CV_Template.docx"
-  # Tu CV actual también sirve como template de formato
-  # El sistema usará la misma estructura y formato
 
 IDIOMA_OUTPUT: "auto"
   # "auto" = detectar de JD | "español" | "inglés"
@@ -134,8 +137,7 @@ IDIOMA_OUTPUT: "auto"
 ### 📋 Opción B: Sin Context File (Requiere más tokens)
 
 ```yaml
-CV_ORIGINAL: |
-  {Pegar CV completo}
+# ⚠️ CV_ORIGINAL — auto-carga igual que en Opción A (ver regla arriba)
 
 JD_COMPLETA: |
   {Pegar JD completa}
@@ -165,7 +167,44 @@ IDIOMA_OUTPUT: "español"
 
 ## REGLAS CRÍTICAS DE OPTIMIZACIÓN
 
-### 🔒 1. INTEGRIDAD PROFESIONAL (NON-NEGOTIABLE)
+#### ⚠️ 0. REGLA CRÍTICA — AÑOS DE EXPERIENCIA (ERROR RECURRENTE — LEER PRIMERO)
+
+**NUNCA escribir "17 años de experiencia en [función específica]".**
+
+Julio tiene 17 años de trayectoria profesional TOTAL, de los cuales los primeros ~9 fueron en desarrollo de software (no en transformación ni innovación). Esta distinción es obligatoria en todo RESUMEN PROFESIONAL.
+
+**❌ PROHIBIDO:**
+- "17 años de experiencia liderando innovación"
+- "17 años de experiencia en transformación"
+- "17 años de experiencia facilitando talleres"
+- Cualquier combinación de "17 años" + función específica del rol
+
+**✅ OBLIGATORIO — fórmula exacta para el summary:**
+> "[Título del rol] con **8+ años** especializados en [función del rol], con **17 años de trayectoria profesional total** que incluye base técnica en ingeniería de software."
+
+**Regla simple:** 17 años → solo para "trayectoria profesional total". 8+ años → para la especialización en transformación/innovación/agile/diseño organizacional.
+
+---
+
+### ⚠️ FRASES PROHIBIDAS — SUENAN A IA (no usar en ningún CV)
+
+Las siguientes frases son marcadores automáticos de escritura generada por IA. Están **prohibidas** en cualquier sección del CV:
+
+❌ "Historial comprobado de…" → integrar la métrica directamente en contexto ("En BBVA Perú logré…")
+❌ "Sólida trayectoria en…" → decir qué hiciste, no catalogarlo
+❌ "Profesional altamente motivado…" → vacío, eliminar
+❌ "Experto en…" (como apertura de summary) → abrir con título + años, no con "Experto"
+❌ "Contribuí al éxito de…" → nombrar el resultado concreto
+❌ "Demostré habilidades de…" → describir el logro, no la habilidad
+❌ "Responsable de…" (como inicio de bullet) → usar verbo de acción directo
+❌ "Trabajé en estrecha colaboración con…" → decir qué produjo esa colaboración
+❌ "Jugué un rol clave en…" → describir el rol directamente
+❌ "Apasionado por…" (en summary) → demasiado genérico
+❌ "Orientado a resultados" → vacío, reemplazar por el resultado mismo
+
+---
+
+## 🔒 1. INTEGRIDAD PROFESIONAL (NON-NEGOTIABLE)
 
 **PROHIBIDO:**
 - ❌ Inventar experiencia laboral que no existe
@@ -220,25 +259,55 @@ IDIOMA_OUTPUT: "español"
 
 ---
 
-### 🎯 3. ESTRATEGIA DE KEYWORDS (80/20 RULE)
+### 🎯 3. ESTRATEGIA DE KEYWORDS (60/40 RULE — Anti-detección IA)
 
-**Regla 80/20:**
-- ✅ **80%** del vocabulario clave debe coincidir EXACTAMENTE con términos de la JD
-- ✅ **20%** pueden ser sinónimos profesionales o términos relacionados
+**El objetivo es doble: pasar ATS Y sonar humano ante el reclutador.**
+Un CV con keywords repetidos exactamente 4-5 veces activa señales de IA en reclutadores experimentados. La regla 60/40 equilibra match ATS con naturalidad redaccional.
+
+**Regla 60/40:**
+- ✅ **60% máximo** del vocabulario clave usa el término EXACTO de la JD
+- ✅ **40% mínimo** usa sinónimos profesionales, variaciones o términos relacionados
+
+**Cap de repetición por keyword:**
+- Cada keyword crítico debe aparecer **máximo 2-3 veces** en el documento completo
+- En sección de Competencias: usar el término exacto (1 aparición — ATS la escanea)
+- En bullets de Experiencia: rotar entre el término exacto y sus sinónimos
+- En Summary: 1 aparición del término exacto; variantes para las demás menciones
+
+**Guía de sinónimos frecuentes para este perfil:**
+
+| Término exacto JD | Variaciones válidas | Regla |
+|-------------------|---------------------|-------|
+| modelo operativo ágil | formas de trabajo ágil / diseño operativo | Reemplazar en bullets narrativos |
+| OKRs | — | ✅ NO reemplazar — usar siempre "OKRs" |
+| OKR cycles (ciclos) | ciclos de retroalimentación del outcome/impacto | Reemplazar solo la parte "ciclos" |
+| mejora continua | refinamiento sistemático / evolución continua | Reemplazar en bullets narrativos |
+| facilitación ejecutiva | acompañamiento a C-levels / acompañamiento a gerencias y heads (según wording de la oferta) | Adaptar al nivel mencionado en la JD |
+| flujos de valor | flujos de valor completos / cadenas de valor E2E | Reemplazar en bullets narrativos |
+| transformación organizacional | — | ✅ NO reemplazar — no es equivalente a otras variantes |
+| transformación digital | — | ✅ NO reemplazar — término específico |
+| métricas de negocio | indicadores de impacto / resultados de negocio / KPIs estratégicos | Reemplazar en bullets narrativos |
+| accountability | responsabilidad compartida de resultados / compromiso de resultados | Reemplazar en bullets narrativos |
+| governance / governance design | modelos de gobierno / sistemas de gobierno | Reemplazar en bullets narrativos |
+| roadmaps | — | ✅ NO reemplazar |
+| playbooks | guías de trabajo | Reemplazar en bullets narrativos |
+| liderazgo ágil | — | ✅ NO reemplazar |
+| incomodar constructivamente | desafiar con empatía y asertividad | Reemplazar en summary/perfil |
 
 **Distribución de Keywords:**
 
-| Sección | Densidad | Ejemplo |
+| Sección | Densidad | Criterio |
 |---------|----------|---------|
-| PROFESSIONAL SUMMARY | Alta (10-15 keywords) | Metodologías, años exp, industria |
-| EXPERIENCIA LABORAL | Media (5-8 por rol) | En contexto de logros |
-| HABILIDADES TÉCNICAS | Alta (100% match JD) | Lista exhaustiva |
-| CERTIFICACIONES | Exacta | Nombres completos + siglas |
+| RESUMEN PROFESIONAL | Alta (8-12 keywords, 60% exactos) | ATS y human scan — 1ª impresión |
+| EXPERIENCIA LABORAL | Media (3-5 por rol, variados) | Priorizar sinónimos en contexto narrativo |
+| COMPETENCIAS CLAVE | Exacta (lista — ATS la escanea 100%) | Usar términos exactos de JD aquí |
+| CERTIFICACIONES | Exacta | Nombres completos + siglas oficiales |
 
-**Verificación:**
-- [ ] Cada keyword crítico aparece mínimo 3-5 veces
-- [ ] Keywords distribuidos naturalmente (no keyword stuffing)
-- [ ] Priorizada legibilidad humana después de pasar ATS
+**Verificación anti-IA:**
+- [ ] Ningún keyword exacto aparece más de 3 veces en todo el documento
+- [ ] Los bullets de experiencia usan al menos 40% de variaciones/sinónimos
+- [ ] El texto suena a voz propia, no a lista de keywords ensamblados
+- [ ] Legibilidad humana prioritaria — el ATS se satisface con la sección de Competencias
 
 ---
 
@@ -455,8 +524,13 @@ Párrafo del summary...
 Institución — Grado/Cert — Año
 
 ## LANGUAGES
-- Idioma: Nivel
+**Español** – Nativo
+**Inglés** – Avanzado (C1)
 ```
+
+> ⚠️ FORMATO CRÍTICO — IDIOMAS: El script `md_to_docx_v2.js` requiere que cada idioma
+> use formato `**Nombre** – Nivel` (negritas + guion largo). NO usar `- Idioma: Nivel`
+> (bullet con dos puntos) porque el parser no lo reconoce y la sección queda en blanco.
 
 **3.2 Referencia de colores aplicados automáticamente:**
 ```javascript
@@ -543,17 +617,19 @@ node scripts/md_to_docx_v2.js outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md
 3. Intentar crear el DOCX con Python → usar `node scripts/md_to_docx_v2.js`
 4. Usar fuente Arial → es Calibri en toda la v2
 5. Exceder 2 páginas
-6. Inventar experiencia no presente en CV_ORIGINAL
-7. Omitir keywords críticos de la JD
-8. Incluir competencias/herramientas no relacionadas con JD
+6. Inventar experiencia no presente en el CV master
+7. Repetir el mismo keyword exacto más de 3 veces en el documento
+8. Usar el mismo término exacto en cada bullet — rotar con sinónimos
+9. Incluir competencias/herramientas no relacionadas con JD
+10. Pedir al usuario que pegue el CV — leerlo desde resumes_base/ automáticamente
 
 ✅ **SÍ HAZLO:**
-1. Generar Markdown limpio con la estructura exacta que espera `md_to_docx_v2.js`
-2. Detectar idioma de JD y usar los headers de sección en el idioma correcto
-3. Aplicar tamaños de fuente correctos en el MD: el script aplica 18pt nombre, 12pt headers, 9.5pt body
-4. Priorizar contenido más relevante a la JD
-5. Condensar roles antiguos si es necesario (máx 2 bullets)
-6. Verificar densidad de keywords (80/20)
+1. Leer el CV desde `resumes_base/` antes de generar (sin pedirlo al usuario)
+2. Generar Markdown limpio con la estructura exacta que espera `md_to_docx_v2.js`
+3. Detectar idioma de JD y usar los headers de sección en el idioma correcto
+4. Aplicar regla 60/40: keywords exactos en sección Competencias + sinónimos en bullets
+5. Priorizar contenido más relevante a la JD
+6. Condensar roles antiguos si es necesario (máx 2 bullets)
 7. Mantener métricas cuantificadas en bullets
 8. Agrupar certificaciones para ahorrar espacio
 9. Ejecutar `node scripts/md_to_docx_v2.js` después de guardar el .md
@@ -669,6 +745,7 @@ node scripts/md_to_docx_v2.js outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md
 | 2.0 | 2026-01-21 | Fusión Fase 2+3, soporte context file, límite 2 páginas, detección idioma |
 | 2.1 | 2026-01-21 | Integración con script Python automatizado para generación DOCX directa |
 | 2.2 | 2026-03-09 | Migración a Node.js (`md_to_docx_v2.js`), fuente Calibri, márgenes 0.75in, paleta navy/blue, bullets nativos Word |
+| 2.3 | 2026-03-11 | Regla keywords 80/20 → 60/40 con cap repetición (anti-detección IA); CV_ORIGINAL eliminado como input manual — auto-carga desde resumes_base/ |
 
 ---
 

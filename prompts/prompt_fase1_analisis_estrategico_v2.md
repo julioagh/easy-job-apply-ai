@@ -1,11 +1,15 @@
 # Prompt Parametrizable - Fase 1: Análisis Estratégico y Decisión GO/NO-GO
 
 ## METADATA
-- **Versión**: 2.0 (Optimizada)
+- **Versión**: 2.1 (CV auto-carga desde resumes_base/)
 - **Fecha creación**: 21 de enero, 2026
+- **Última actualización**: 11 de marzo, 2026
 - **Autor**: Julio Gonzales - Numen Coaching & Consulting
 - **Propósito**: Análisis estratégico de fit, gaps y decisión de aplicación
-- **Cambios v2.0**: 
+- **Cambios v2.1**:
+  - CV_TEXT eliminado como input manual — sistema lee automáticamente desde `resumes_base/`
+  - Idioma del CV se detecta automáticamente desde el idioma de la JD
+- **Cambios v2.0**:
   - Agregado output de context file YAML
   - Decisión GO/NO-GO explícita
   - Análisis salarial simplificado (opcional)
@@ -45,17 +49,31 @@ Tienes un historial comprobado de:
 
 ## INPUTS REQUERIDOS
 
+### ⚠️ VALIDACIÓN PREVIA — EJECUTAR ANTES DE CUALQUIER ANÁLISIS
+
+Antes de proceder, verificar que el usuario haya proporcionado `JD_TEXT` **en el mensaje actual**.
+
+- Si `JD_TEXT` **está presente** en el mensaje → continuar con el análisis
+- Si `JD_TEXT` **NO está presente** → DETENERSE y responder únicamente:
+
+  > "Listo para ejecutar Fase 1. Por favor pega la JD (descripción del puesto) y te indico si necesito algún dato adicional."
+
+**NO asumir JD de sesiones anteriores, archivos del proyecto ni ejemplos.**
+
+---
+
 ### 📋 Variables de Entrada
 
 ```yaml
 JD_TEXT: |
   {Pegar aquí la descripción completa del puesto objetivo}
 
-CV_TEXT: |
-  {Pegar aquí el contenido de tu CV actual}
-  # Español: resumes_base/CV_JulioGonzales_MASTER_2025.md
-  # Inglés: resumes_base/CV_JulioGonzales_MASTER_2025_ENG.md
-  # Usar la versión que corresponda al idioma de la JD para ahorrar tokens
+# ⚠️ CV_TEXT — NO se pega manualmente. El sistema lo carga automáticamente:
+#   - JD en ESPAÑOL → leer: resumes_base/CV_JulioGonzales_MASTER_2025.md
+#   - JD en INGLÉS  → leer: resumes_base/CV_JulioGonzales_MASTER_2025_ENG.md
+#
+# REGLA: Leer el archivo directamente con Read tool ANTES de analizar.
+# Solo solicitar al usuario si el archivo NO existe en resumes_base/.
 
 SALARY_EXPECTATIONS: |
   {Expectativa salarial bruta mensual en moneda de la oferta}
@@ -386,6 +404,7 @@ Antes de entregar outputs, verificar:
 |---------|-------|---------|
 | 1.0 | 2026-01-20 | Versión inicial del prompt |
 | 2.0 | 2026-01-21 | Agregado context file YAML, decisión GO/NO-GO explícita, análisis salarial simplificado |
+| 2.1 | 2026-03-11 | CV_TEXT eliminado como input manual — auto-carga desde resumes_base/ según idioma de JD |
 
 ---
 
