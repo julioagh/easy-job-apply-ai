@@ -33,6 +33,9 @@ templates/*.docx
 # Contexto personal del usuario (información privada, no versionar)
 CLAUDE.md
 
+# Metadata interna de Claude Code
+.claude/
+
 # Archivos de sistema
 .DS_Store
 .vscode/
