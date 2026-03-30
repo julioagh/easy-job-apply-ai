@@ -47,6 +47,8 @@ const dividerThin = () => new Paragraph({
 });
 
 const sectionHeader = (text) => new Paragraph({
+  style: "SectionHeader",
+  alignment: AlignmentType.LEFT,
   spacing: { before: 200, after: 60 },
   children: [new TextRun({ text: text.toUpperCase(), bold: true, size: 22, font: FONT, color: C_SECTION, allCaps: true })]
 });
@@ -329,51 +331,64 @@ function parseMarkdownCV(content) {
 
     // ── EDUCATION & CERTIFICATIONS ──
     if (section === 'education') {
-      // **Institution** → Educación
       const boldMatch = line.match(/^\*\*(.+?)\*\*\s*(.*)/);
       if (boldMatch) {
         const titlePart = boldMatch[1];
         const rest = boldMatch[2].trim();
 
-        // Universidad (sin pipe en mismo bloque, siguiente línea es degree)
-        if (!rest.includes('|') && !rest && i + 1 < lines.length) {
-          const nextLine = lines[i + 1].trim();
-          if (nextLine && !nextLine.startsWith('**') && !nextLine.startsWith('#')) {
-            data.education.push({ institution: titlePart, degree: nextLine, location: '' });
-            i++; // skip next line (ya consumida)
-            continue;
-          }
-        }
-
-        // Certificación: **Nombre** | Issuer | Year
-        if (rest.includes('|')) {
-          data.certifications.push({ name: titlePart, detail: rest.slice(rest.indexOf('|') + 1).trim() });
-          // Si la siguiente línea es descripción adicional (no bold, no vacía), concatenar
-          const nextLine = lines[i + 1] ? lines[i + 1].trim() : '';
-          if (nextLine && !nextLine.startsWith('**') && !nextLine.startsWith('#') && !nextLine.startsWith('---')) {
-            data.certifications[data.certifications.length - 1].detail += ' — ' + nextLine;
-            i++;
+        // FIX: Grupo de certificaciones PRIMERO — **Category:** items | más items
+        // Debe ir antes del check de '|' para no perder el primer ítem del grupo
+        if (titlePart.endsWith(':')) {
+          if (rest) {
+            data.certifications.push({ name: titlePart, detail: rest });
+          } else {
+            const nextLine = lines[i + 1] ? lines[i + 1].trim() : '';
+            if (nextLine && !nextLine.startsWith('**') && !nextLine.startsWith('#')) {
+              data.certifications.push({ name: titlePart, detail: nextLine });
+              i++;
+            } else {
+              data.certifications.push({ name: titlePart, detail: '' });
+            }
           }
           continue;
         }
 
-        // Grupo de certificaciones: **Agile & Product:** (siguiente línea tiene los certs)
-        if (titlePart.endsWith(':') || rest.length < 3) {
-          const nextLine = lines[i + 1] ? lines[i + 1].trim() : '';
-          if (nextLine && !nextLine.startsWith('**')) {
-            data.certifications.push({ name: titlePart, detail: nextLine });
-            i++;
-            continue;
+        // Universidad / Degree: **Título** (sin texto después → siguiente línea es institución+año)
+        if (!rest) {
+          if (i + 1 < lines.length) {
+            const nextLine = lines[i + 1].trim();
+            if (nextLine && !nextLine.startsWith('**') && !nextLine.startsWith('#')) {
+              data.education.push({ institution: titlePart, degree: nextLine, location: '' });
+              i++;
+              continue;
+            }
           }
-          data.certifications.push({ name: titlePart, detail: rest });
+          data.education.push({ institution: titlePart, degree: '', location: '' });
           continue;
         }
+
+        // Certificación individual: **Nombre** | Issuer — Year
+        // rest empieza con '|' porque el pipe sigue inmediatamente al cierre de **
+        if (rest.startsWith('|')) {
+          data.certifications.push({ name: titlePart, detail: rest.slice(1).trim() });
+          continue;
+        }
+
+        // Certificación con texto directo sin pipe: **Nombre** Issuer — Year
+        data.certifications.push({ name: titlePart, detail: rest });
+        continue;
       }
 
-      // Líneas de detalle (Bachelor of Science...)
-      if (!line.startsWith('**') && !line.startsWith('#') && data.education.length > 0) {
-        const lastEdu = data.education[data.education.length - 1];
-        if (!lastEdu.degree) lastEdu.degree = line;
+      // FIX: Líneas de texto plano — funciona aunque data.education esté vacío
+      // Cubre: "Pontificia Universidad Católica del Perú (PUCP) — 2007" como primera línea
+      if (!line.startsWith('**') && !line.startsWith('#')) {
+        if (data.education.length > 0) {
+          const lastEdu = data.education[data.education.length - 1];
+          if (!lastEdu.degree) lastEdu.degree = line;
+        } else {
+          // Primera entrada de texto plano: crear entrada de educación directamente
+          data.education.push({ institution: line, degree: '', location: '' });
+        }
       }
       continue;
     }
@@ -425,11 +440,13 @@ function buildDocument(data) {
 
   // ── NOMBRE Y CONTACTO ──
   children.push(new Paragraph({
+    style: "HeaderCenter",
     alignment: AlignmentType.CENTER, spacing: { before: 0, after: 40 },
     children: [new TextRun({ text: data.name, bold: true, size: 36, font: FONT, color: C_NAME, allCaps: true })]
   }));
   if (data.contact) {
     children.push(new Paragraph({
+      style: "HeaderCenter",
       alignment: AlignmentType.CENTER, spacing: { before: 0, after: 20 },
       children: [new TextRun({ text: data.contact, size: 18, font: FONT, color: "444444" })]
     }));
@@ -609,11 +626,6 @@ function buildDocument(data) {
 
   return new Document({
     styles: {
-      default: {
-        document: {
-          paragraph: { alignment: AlignmentType.BOTH }
-        }
-      },
       paragraphStyles: [
         {
           id: "BodyText",
@@ -621,6 +633,20 @@ function buildDocument(data) {
           basedOn: "Normal",
           paragraph: { alignment: AlignmentType.BOTH },
           run: { font: FONT, size: 19, color: C_BODY }
+        },
+        {
+          id: "HeaderCenter",
+          name: "Header Center",
+          basedOn: "Normal",
+          paragraph: { alignment: AlignmentType.CENTER },
+          run: { font: FONT }
+        },
+        {
+          id: "SectionHeader",
+          name: "Section Header",
+          basedOn: "Normal",
+          paragraph: { alignment: AlignmentType.LEFT },
+          run: { font: FONT }
         }
       ]
     },
