@@ -120,10 +120,7 @@ Pipeline completo:  ~18,050 tok    ~14,020 tok   -4,030 tok (-22%)
 ├── requirements.txt                   # Dependencias Python
 ├── pytest.ini                         # ✨ Configuración de tests
 │
-├── docs/
-│   ├── GUIA_RAPIDA.md                # Guía de uso rápido
-│   ├── CHANGELOG_v2.1.md             # ✨ Changelog de mejoras v2.1
-│   └── RECOMENDACIONES_OPTIMIZACION.md  # Análisis técnico de optimizaciones
+├── docs/                              # Documentación histórica y de referencia
 │
 ├── prompts/
 │   ├── prompt_fase1_analisis_estrategico_v2.md    # ✅ USAR (v2.0)
@@ -337,13 +334,6 @@ open htmlcov/index.html
 - **Análisis:** `analisis_{SESSION_ID}.md`
 - **CV Final:** `CV_{APELLIDO}_{POSICION_SLUG}.docx`
 
-## 📚 Documentación
-
-- **[GUIA_RAPIDA.md](docs/GUIA_RAPIDA.md)** - Guía de uso paso a paso
-- **[RECOMENDACIONES_OPTIMIZACION.md](docs/RECOMENDACIONES_OPTIMIZACION.md)** - Análisis técnico detallado
-- **[AUTOMATIZACION_FASE2.md](docs/AUTOMATIZACION_FASE2.md)** - ✨ Documentación de automatización Fase 2
-- **[ESTRUCTURA_SCRIPTS.md](docs/ESTRUCTURA_SCRIPTS.md)** - ✨ Estructura y descripción de scripts Python
-
 ## 🎯 Casos de Uso
 
 ### Caso 1: Aplicación Recomendable
@@ -398,10 +388,8 @@ Resultado: No ejecuta Fase 2 aún
 ## 📞 Soporte
 
 Para dudas o problemas:
-1. Revisa `docs/GUIA_RAPIDA.md`
-2. Consulta `docs/RECOMENDACIONES_OPTIMIZACION.md`
-3. Verifica que los inputs estén completos
-4. Confirma que el context file sea YAML válido
+1. Verifica que los inputs estén completos
+2. Confirma que el context file sea YAML válido
 
 ## 📄 Licencia
 
