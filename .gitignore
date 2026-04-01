@@ -6,6 +6,13 @@ sessions/*.md
 sessions/fase*_input_*.txt
 !sessions/README.md
 
+# Cover letters generadas (outputs)
+cover_letters/*.json
+cover_letters/*.md
+cover_letters/*.pdf
+cover_letters/*.docx
+!cover_letters/README.md
+
 # CVs generados (información personal)
 outputs/*.docx
 outputs/*.md
