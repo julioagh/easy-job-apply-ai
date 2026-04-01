@@ -358,6 +358,14 @@ Ejemplo:
 
 ### PASO 3: Generar el Markdown
 
+> ⚠️ **REGLA DE HERRAMIENTA — OBLIGATORIA**
+> Usar **siempre terminal con heredoc** para crear el archivo. `write_to_file` puede colgarse indefinidamente en archivos grandes.
+> ```bash
+> run_command: cat > outputs/CV_JulioGonzales_{EMPRESA}_{POSICION}.md << 'EOF'
+> ... contenido markdown ...
+> EOF
+> ```
+
 Guarda el CV en `outputs/CV_JulioGonzales_{EMPRESA}_{POSICION}.md` con esta estructura:
 
 ```

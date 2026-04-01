@@ -295,6 +295,20 @@ Análisis considerando:
 3. Justificar decisión con datos del análisis
 
 ### Paso 5: Generación de Outputs
+
+> ⚠️ **REGLA DE HERRAMIENTA — OBLIGATORIA**
+> Usar **siempre terminal con heredoc** para crear los archivos. `write_to_file` puede colgarse indefinidamente en archivos grandes.
+> ```bash
+> run_command: cat > sessions/context_{SESSION_ID}.yaml << 'EOF'
+> ... contenido yaml ...
+> EOF
+> ```
+> ```bash
+> run_command: cat > sessions/analisis_{SESSION_ID}.md << 'EOF'
+> ... contenido markdown ...
+> EOF
+> ```
+
 1. **Context File YAML**: Datos estructurados para Fase 2
    - Incluir keywords con frecuencia objetivo
    - Listar gaps y estrategias de mitigación
