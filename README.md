@@ -29,6 +29,64 @@ Generar CVs optimizados para sistemas ATS **solo cuando sea estratégicamente re
 - ✨ **Control de versiones Git**
 - ✨ **Entorno virtual Python**
 
+### Optimización de tokens (v2.2)
+- 🔵 **CV maestro con marcadores [NO_LLM]** — excluir secciones de uso personal (~400 tokens/llamada)
+- 🔵 **Prompt Fase 1 comprimido** — template YAML, contexto y próximos pasos reducidos (-19%)
+- 🔵 **Prompt Fase 2 comprimido** — secciones duplicadas eliminadas (-34%)
+- 🔵 **CV maestro bilingüe** — usar versión en el idioma de la JD (-30-40% tokens en Fase 2)
+
+---
+
+## 💡 Optimización de Tokens — Impacto Medido
+
+Las siguientes mejoras reducen el consumo de tokens sin afectar la calidad de los CVs generados:
+
+### Cambios implementados
+
+| Área | Antes | Después | Reducción |
+|------|-------|---------|-----------|
+| `prompt_fase1_analisis_estrategico_v2.md` | 12,998 bytes | 10,474 bytes | **-19%** |
+| `prompt_fase2_generacion_cv_docx_v2.md` | 28,420 bytes | 18,802 bytes | **-34%** |
+| CV maestro (secciones [NO_LLM] excluidas) | ~7,700 tokens | ~6,700 tokens | **-13%** |
+
+### Qué se eliminó / comprimió
+
+**Prompt Fase 1 (-2,524 bytes):**
+- Sección "Contexto del Proyecto": 15 líneas → 2 líneas
+- Template YAML: ejemplos repetidos → estructura mínima con comentarios `# ... repetir`
+- Sección "Próximos Pasos": 42 líneas → tabla de 3 filas
+- Control de versiones histórico → comentario inline de 1 línea
+
+**Prompt Fase 2 (-9,618 bytes):**
+- Sección "Tu Tarea / Generar Solo el Markdown": eliminada (estaba duplicada en `COWORK_README.md`)
+- Opción B de inputs (sin context file): eliminada (consume más tokens, uso desaconsejado)
+- Sección "Proceso Automático": eliminada (instrucciones para el usuario, no para el LLM)
+- Paso 3 — template Markdown completo (110 líneas): comprimido a estructura esquemática (20 líneas)
+- Metadata con historial de versiones: comprimido a comentario de 2 líneas
+
+**CV Maestro ES + EN (~400 tokens excluibles por llamada):**
+- Secciones marcadas con `[NO_LLM]` — no enviar al LLM:
+  - `## PROPÓSITO` (~50 tokens)
+  - `## INTERESES` (~40 tokens)
+  - `## LO QUE OFREZCO` (~220 tokens)
+  - `## INFORMACIÓN ADICIONAL PARA ENTREVISTAS` (~450 tokens)
+
+### Impacto en pipeline completo
+
+```
+                    ANTES          DESPUÉS       AHORRO
+Fase 1 (prompt):    ~3,250 tok     ~2,620 tok    -630 tok  (-19%)
+Fase 2 (prompt):    ~7,100 tok     ~4,700 tok    -2,400 tok (-34%)
+CV maestro (input): ~7,700 tok     ~6,700 tok    -1,000 tok (-13%)
+─────────────────────────────────────────────────────────
+Pipeline completo:  ~18,050 tok    ~14,020 tok   -4,030 tok (-22%)
+```
+
+> **Nota:** Los tokens del CV maestro dependen de qué secciones se envíen.
+> Usar solo el perfil relevante al tipo de posición ahorra ~720 tokens adicionales.
+
+---
+
 ## 📊 Flujo del Sistema
 
 ```

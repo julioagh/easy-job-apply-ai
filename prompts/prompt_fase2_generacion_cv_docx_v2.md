@@ -1,28 +1,7 @@
 # Prompt Parametrizable - Fase 2: Generación de CV DOCX Optimizado
 
-## METADATA
-- **Versión**: 2.4 (Regla crítica años de experiencia)
-- **Fecha creación**: 21 de enero, 2026
-- **Última actualización**: 21 de marzo, 2026
-- **Autor**: Julio Gonzales - Numen Coaching & Consulting
-- **Propósito**: Generación directa de CV en formato .docx optimizado para ATS (máx 2 páginas)
-- **Dependencia**: Requiere Fase 1 con recomendación "PROCEDER"
-- **Cambios v2.4**:
-  - ⚠️ Regla crítica años de experiencia: NUNCA usar "17 años" vinculado a una función específica
-- **Cambios v2.3**:
-  - Regla de keywords: 80/20 → **60/40 con cap de repetición** (anti-detección IA)
-  - CV_ORIGINAL eliminado como input manual — auto-carga desde `resumes_base/`
-- **Cambios v2.2**:
-  - Conversor DOCX migrado de Python (`md_to_docx.py`) a Node.js (`md_to_docx_v2.js`)
-  - Fuente: Arial → **Calibri**
-  - Márgenes: 1.22 cm → **0.75 in (1.9 cm)**
-  - Paleta de color profesional navy/blue (nombres, headers, separadores)
-  - Template de referencia: `templates/CV_Template_v2.docx`
-- **Cambios v2.0–2.1**:
-  - Fusión de optimización de contenido + generación DOCX
-  - Soporte para context file (reduce tokens 60%)
-  - Límite estricto de 2 páginas con estrategia de priorización
-  - Detección automática de idioma según JD
+<!-- Versión 2.4 | Autor: Julio Gonzales - Numen Coaching & Consulting | Uso personal
+     Conversor: Node.js md_to_docx_v2.js | Fuente: Calibri | Márgenes: 0.75in | Paleta: navy/blue -->
 
 ---
 
@@ -35,66 +14,6 @@
 Si Fase 1 recomendó "RECONSIDERAR" o "NO_APLICAR", **NO ejecutar esta fase**.
 
 ---
-
-## 📝 TU TAREA: GENERAR SOLO EL MARKDOWN
-
-**⚠️ INSTRUCCIONES CLARAS:**
-
-### ✅ LO QUE DEBES HACER:
-
-**Genera ÚNICAMENTE el contenido del CV optimizado en formato Markdown** y guárdalo en:
-
-**Ruta:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/outputs/CV_{PRIMER_NOMBRE}{PRIMER_APELLIDO}_{EMPRESA}_{POSICION}.md`
-
-**Ejemplo:** `CV_JulioGonzales_Entel_AgileCoach.md` (para "Julio Alberto Gonzales Heredia")
-
-**Formato del Markdown:**
-```markdown
-# NOMBRE COMPLETO DEL CANDIDATO
-
-Ciudad, País | +Teléfono | email@domain.com | LinkedIn: url
-
----
-
-## PROFESSIONAL SUMMARY
-[Contenido del summary optimizado con keywords...]
-
-## PROFESSIONAL EXPERIENCE
-[Experiencia profesional optimizada...]
-
-## KEY COMPETENCIES
-[Competencias clave...]
-
-## EDUCATION & CERTIFICATIONS
-[Formación y certificaciones...]
-
-## LANGUAGES
-**Español** – Nativo
-**Inglés** – Avanzado (C1)
-```
-
-### ❌ LO QUE NO DEBES HACER:
-
-- **NO intentes crear un script Python** para generar el DOCX
-- **NO intentes ejecutar ningún script** Python
-- **NO intentes generar el archivo DOCX** directamente
-
-### 📌 INFORMACIÓN IMPORTANTE:
-
-**Ya existe un script Node.js (`scripts/md_to_docx_v2.js`) que convierte el Markdown a DOCX con el nuevo estilo profesional.**
-
-El usuario ejecutará este comando después de que generes el Markdown:
-```bash
-node scripts/md_to_docx_v2.js outputs/CV_{PRIMER_NOMBRE}{PRIMER_APELLIDO}_{EMPRESA}_{POSICION}.md
-```
-
-Este script automáticamente aplica:
-- Márgenes: 0.75 in (1.9 cm) en todos los lados
-- Fuente: **Calibri** con tamaños exactos (18pt nombre, 12pt headers, 9.5pt body/bullets)
-- Paleta navy/blue: nombre en `#1F3864`, headers en `#1F4E79`, separadores en `#2E75B6`
-- Bullets nativos de Word (LevelFormat.BULLET) — ATS-friendly
-- Formato ATS-friendly profesional
-- Template de referencia: `templates/CV_Template_v2.docx`
 
 ---
 
@@ -132,35 +51,6 @@ JD_COMPLETA: |
 
 IDIOMA_OUTPUT: "auto"
   # "auto" = detectar de JD | "español" | "inglés"
-```
-
-### 📋 Opción B: Sin Context File (Requiere más tokens)
-
-```yaml
-# ⚠️ CV_ORIGINAL — auto-carga igual que en Opción A (ver regla arriba)
-
-JD_COMPLETA: |
-  {Pegar JD completa}
-
-KEYWORDS_CRITICOS:
-  - "Scrum Master"
-  - "OKRs"
-  - "SAFe"
-  - "IA generativa"
-
-GAPS_CRITICOS:
-  - gap: "Experiencia en IA generativa"
-    estrategia: "Reframing de proyectos de automatización"
-
-FORTALEZAS_CLAVE:
-  - "8 años experiencia Agile Coaching"
-  - "Certificación SAFe SPC"
-
-EXPERIENCIA_A_PRIORIZAR:
-  - "BBVA Perú | Agile Coach Expert 2022-2025"
-  - "Entel Perú | Agile Coach 2019-2022"
-
-IDIOMA_OUTPUT: "español"
 ```
 
 ---
@@ -466,114 +356,32 @@ Ejemplo:
 [Ordenar por relevancia para JD, no cronológicamente]
 ```
 
-### PASO 3: Generación del DOCX
+### PASO 3: Generar el Markdown
 
-**⚠️ NO generes código Python para crear el DOCX. El conversor ya existe en Node.js.**
+Guarda el CV en `outputs/CV_JulioGonzales_{EMPRESA}_{POSICION}.md` con esta estructura:
 
-El script `scripts/md_to_docx_v2.js` toma el Markdown generado y produce automáticamente el DOCX con el estilo correcto. Solo necesitas asegurarte de que el Markdown esté bien formateado.
-
-**3.1 Estructura de Markdown esperada por el conversor:**
-```markdown
+```
 # NOMBRE COMPLETO EN MAYÚSCULAS
-
-Ciudad, País  |  +Teléfono  |  email@domain.com  |  LinkedIn: url
-
+Ciudad, País  |  +Teléfono  |  email  |  LinkedIn: url
 ---
-
-## PROFESSIONAL SUMMARY
-Párrafo del summary...
-
-## AI PRODUCT WORK  ← sección CONDICIONAL — leer criterios antes de incluir
-
-⚠️ CRITERIOS DE USO — solo incluir esta sección si SE CUMPLEN AMBAS condiciones:
-  1. El trabajo es VERDADERAMENTE INDEPENDIENTE: proyectos freelance propios, herramientas
-     personales construidas fuera de un empleador, experimentos IA como consultor autónomo.
-  2. La JD valora explícitamente trabajo independiente, side projects, o AI fluency hands-on
-     que no puede demostrarse suficientemente dentro de la experiencia laboral.
-
-❌ NO incluir si el trabajo de IA fue realizado DENTRO de un rol de empleado (aunque sea
-   innovador o especial). En ese caso, ese trabajo va como bullet en PROFESSIONAL EXPERIENCE
-   bajo la empresa correspondiente.
-
-✅ Ejemplos válidos para esta sección:
-   - Herramienta de automatización construida personalmente (fuera del horario laboral)
-   - Prototipo IA desarrollado como consultor independiente para cliente propio
-   - Proyecto open source o experimento personal con LLMs/APIs
-
-❌ Ejemplos que NO van aquí:
-   - Piloto IA liderado como empleado de BBVA → va en BBVA dentro de PROFESSIONAL EXPERIENCE
-   - Proyecto de automatización encargado por tu empleador → va en PROFESSIONAL EXPERIENCE
-
-### Nombre Proyecto — Subtítulo descriptivo
-**Contexto:** breve descripción del proyecto y año
-**Rol:** qué hiciste específicamente
-**Herramientas:** stack utilizado
-**Impacto:** resultado medible o aprendizaje clave
-
-## PROFESSIONAL EXPERIENCE
+## PROFESSIONAL SUMMARY / RESUMEN PROFESIONAL
+## AI PRODUCT WORK  ← CONDICIONAL: solo si el trabajo IA fue independiente (freelance/personal),
+                       NO si fue dentro de un rol de empleado (va en PROFESSIONAL EXPERIENCE)
+## PROFESSIONAL EXPERIENCE / EXPERIENCIA PROFESIONAL
 ### EMPRESA | Ciudad, País
-**Cargo** | Mes Año - Mes Año
-
-• bullet de logro cuantificado
-• bullet de logro cuantificado
-
-## KEY COMPETENCIES
-**Categoría:** item1, item2, item3
-
-## EDUCATION & CERTIFICATIONS
-Institución — Grado/Cert — Año
-
-## LANGUAGES
-**Español** – Nativo
-**Inglés** – Avanzado (C1)
+**Cargo** | Mes Año – Mes Año
+• bullet cuantificado
+## KEY COMPETENCIES / COMPETENCIAS CLAVE
+## EDUCATION & CERTIFICATIONS / FORMACIÓN Y CERTIFICACIONES
+## LANGUAGES / IDIOMAS
+**Español** – Nativo    ← formato OBLIGATORIO: **Nombre** – Nivel (guion largo, no dos puntos)
 ```
 
-> ⚠️ FORMATO CRÍTICO — IDIOMAS: El script `md_to_docx_v2.js` requiere que cada idioma
-> use formato `**Nombre** – Nivel` (negritas + guion largo). NO usar `- Idioma: Nivel`
-> (bullet con dos puntos) porque el parser no lo reconoce y la sección queda en blanco.
+**Headers:** usar el idioma de la JD (español/inglés) — el conversor los detecta automáticamente.
 
-**3.2 Referencia de colores aplicados automáticamente:**
-```javascript
-// Estos colores se aplican solos — no hace falta especificarlos en el MD
-C_NAME    = "1F3864"  // Nombre del candidato
-C_SECTION = "1F4E79"  // Headers de sección (##)
-C_DIVIDER = "2E75B6"  // Línea decorativa bajo headers
-C_AI      = "1B5E20"  // Label "AI PRODUCT WORK"
-```
+**Si excede 2 páginas:** condensar roles antiguos (máx 2 bullets), agrupar certificaciones, filtrar competencias no relevantes.
 
-**3.3 Idioma de los headers — REGLA:**
-El idioma del CV debe coincidir con el idioma de la JD.
-El conversor detecta automáticamente el idioma según los headers que uses y aplica los títulos de sección correspondientes en el DOCX.
-
-REGLA: Si la JD está en ESPAÑOL → usar headers en ESPAÑOL. Si la JD está en INGLÉS → usar headers en INGLÉS.
-
-```
-ESPAÑOL (JD en español):          INGLÉS (JD en inglés):
-## RESUMEN PROFESIONAL            ## PROFESSIONAL SUMMARY
-## EXPERIENCIA PROFESIONAL        ## PROFESSIONAL EXPERIENCE
-## COMPETENCIAS CLAVE             ## KEY COMPETENCIES
-## FORMACIÓN Y CERTIFICACIONES    ## EDUCATION & CERTIFICATIONS
-## IDIOMAS                        ## LANGUAGES
-```
-
-NOTA: El layout de cada entrada de experiencia es:
-  Línea 1: ### EMPRESA | Ciudad, País
-  Línea 2: **Cargo** | Mes Año – Mes Año   ← fecha va en la misma línea que el cargo
-
-**3.4 Verificar longitud:**
-```
-Si excede 2 páginas en el Markdown:
-1. Condensar roles antiguos (máx 2 bullets)
-2. Agrupar certificaciones en una línea
-3. Filtrar competencias no relacionadas con JD
-4. Omitir roles >10 años si no aportan keywords críticos
-```
-
-**3.5 Comando de conversión:**
-```bash
-node scripts/md_to_docx_v2.js outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md
-# El DOCX se crea automáticamente en la misma carpeta outputs/
-```
+**Conversión a DOCX:** `node scripts/md_to_docx_v2.js outputs/CV_*.md`
 
 ### PASO 4: Verificación Final
 
@@ -683,75 +491,5 @@ Agile Coach Expert | Enero 2022 - Diciembre 2024
 - Verbos: Débil → Fuerte (lideré, diseñé, facilité)
 
 ---
-
-## ✅ CONFIRMACIÓN FINAL Y GENERACIÓN DEL DOCX
-
-Antes de generar el CV, verificar:
-
-1. ¿Leíste el CONTEXT_FILE o tienes los datos necesarios? → ✅
-2. ¿Identificaste keywords críticos de la JD? → ✅
-3. ¿Sabes qué experiencia priorizar? → ✅
-4. ¿Detectaste el idioma correcto (español/inglés)? → ✅
-5. ¿Tienes clara la estrategia si excede 2 páginas? → ✅
-
-**Si respondiste ✅ a todo, procede con los siguientes pasos:**
-
----
-
-### 🤖 PROCESO AUTOMÁTICO DE GENERACIÓN DOCX
-
-**PASO 1: Generar Contenido Optimizado en Markdown**
-- Crea el contenido del CV siguiendo todas las reglas de optimización
-- Asegura que todos los keywords estén en las frecuencias correctas
-- Verifica que sea máximo 2 páginas de contenido
-
-**PASO 2: Guardar Markdown en outputs/**
-- **Nombre:** `CV_{APELLIDO}_{EMPRESA}_{POSICION}.md`
-- **Ruta completa:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md`
-- **Ubicación:** `outputs/`
-- Mantener como referencia
-
-**PASO 3: Convertir Markdown a DOCX usando el Script Node.js**
-
-```bash
-# El script lee el .md en outputs/ y crea el .docx automáticamente en la misma carpeta
-node scripts/md_to_docx_v2.js outputs/CV_{APELLIDO}_{EMPRESA}_{POSICION}.md
-```
-
-**El script `md_to_docx_v2.js`:**
-- Lee el archivo Markdown de `outputs/`
-- Aplica estilo profesional: Calibri, paleta navy/blue, márgenes 0.75 in
-- Bullets nativos Word (ATS-friendly)
-- Guarda el DOCX automáticamente en `outputs/` con el mismo nombre base
-- Template de referencia: `templates/CV_Template_v2.docx`
-
-**PASO 4: Validar Output**
-- Verificar que el archivo `.docx` se creó en `outputs/`
-- Confirmar que el formato es correcto (márgenes, fuentes, espaciado)
-- Validar que sea máximo 2 páginas
-
-**PASO 5: Entregar al Usuario**
-- Proporcionar link de descarga del DOCX
-- Incluir resumen de keywords validados
-- Confirmar que está listo para aplicar sin formateo manual
-
----
-
-## 📌 CONTROL DE VERSIONES
-
-| Versión | Fecha | Cambios |
-|---------|-------|---------|
-| 1.0 | 2026-01-20 | Versión inicial (Fase 2 separada) |
-| 2.0 | 2026-01-21 | Fusión Fase 2+3, soporte context file, límite 2 páginas, detección idioma |
-| 2.1 | 2026-01-21 | Integración con script Python automatizado para generación DOCX directa |
-| 2.2 | 2026-03-09 | Migración a Node.js (`md_to_docx_v2.js`), fuente Calibri, márgenes 0.75in, paleta navy/blue, bullets nativos Word |
-| 2.3 | 2026-03-11 | Regla keywords 80/20 → 60/40 con cap repetición (anti-detección IA); CV_ORIGINAL eliminado como input manual — auto-carga desde resumes_base/ |
-
----
-
-**Desarrollado por:** Julio Gonzales - Numen Coaching & Consulting
-**Para:** Generación de CVs optimizados para ATS sin comprometer integridad  
-**Requisito:** Completar Fase 1 con recomendación "PROCEDER"  
-**Licencia:** Uso personal
 
 ---

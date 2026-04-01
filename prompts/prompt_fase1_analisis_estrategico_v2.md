@@ -18,20 +18,9 @@
 
 # FASE 1: ANÁLISIS ESTRATÉGICO Y DECISIÓN DE APLICACIÓN
 
-## 📌 CONTEXTO DEL PROYECTO
+## 📌 CONTEXTO
 
-**Este proyecto ya tiene infraestructura completa:**
-
-- ✅ **Script de conversión MD → DOCX**: `scripts/md_to_docx.py` (ya existe, no crear uno nuevo)
-- ✅ **Pipeline automatizado**: `scripts/pipeline.py` (maneja Fase 1 y Fase 2)
-- ✅ **Validador de YAML**: `scripts/validate_yaml.py`
-- ✅ **Configuración centralizada**: `scripts/config.py`
-
-**Tu tarea en Fase 1 es SOLO generar los archivos de análisis:**
-1. Context file YAML → `sessions/context_{SESSION_ID}.yaml`
-2. Análisis Markdown → `sessions/analisis_{SESSION_ID}.md`
-
-**NO necesitas crear scripts Python.** Todo ya está implementado.
+Tu tarea es SOLO generar dos archivos: `sessions/context_{SESSION_ID}.yaml` + `sessions/analisis_{SESSION_ID}.md`. Los scripts de conversión ya existen — no crear nuevos.
 
 ---
 
@@ -101,79 +90,62 @@ ANALISIS_SALARIAL_DETALLADO: true
 **Ruta completa:** `/Users/jgonzalesh/Apps/gihub-repos/easy-job-apply-ai/sessions/context_{SESSION_ID}.yaml`
 
 ```yaml
-# Este archivo se usará en Fase 2 para evitar reenviar toda la información
-
-session_id: "{auto-generado: YYYYMMDD_EMPRESA_POSICION}"
-timestamp: "{fecha-hora actual ISO 8601}"
+session_id: "YYYYMMDD_EMPRESA_POSICION"
+timestamp: "ISO 8601"
 version: "2.0"
 
 jd:
-  company: "{extraído de JD_TEXT}"
-  position: "{extraído de JD_TEXT}"
-  seniority_level: "{Junior/Mid/Senior/Lead/Director}"
-  industry: "{INDUSTRY}"
-  location: "{LOCATION}"
-  
+  company: ""
+  position: ""
+  seniority_level: "Junior/Mid/Senior/Lead/Director"
+  industry: ""
+  location: ""
   keywords_criticos:
-    - keyword: "{keyword1}"
-      categoria: "{Hard Skill/Soft Skill/Herramienta/Metodología}"
-      frecuencia_objetivo: {3-5}
-    - keyword: "{keyword2}"
-      categoria: "{categoría}"
-      frecuencia_objetivo: {número}
-  
-  requisitos_indispensables:
-    - "{requisito crítico 1}"
-    - "{requisito crítico 2}"
-  
-  idioma_jd: "{español/inglés/bilingüe}"
+    - keyword: ""
+      categoria: "Hard Skill/Soft Skill/Herramienta/Metodología"
+      frecuencia_objetivo: 3
+    # ... repetir para cada keyword crítico (mínimo 8-12)
+  requisitos_indispensables: []
+  idioma_jd: "español/inglés/bilingüe"
 
 cv_original:
-  candidate_name: "{extraído de CV_TEXT}"
-  years_experience: {número total}
-  current_role: "{cargo actual}"
-  
-  # NO incluir texto completo del CV (ahorro de tokens)
+  candidate_name: ""
+  years_experience: 0
+  current_role: ""
+  # NO incluir texto completo del CV
 
 fase1_resultado:
-  match_score: {porcentaje 0-100}
-  clasificacion: "{Bajo/Medio/Alto/Excelente}"
-  
-  recomendacion: "{PROCEDER/RECONSIDERAR/NO_APLICAR}"
-  justificacion_recomendacion: |
-    {Explicación breve de por qué se recomienda proceder o no}
-  
+  match_score: 0
+  clasificacion: "Bajo/Medio/Alto/Excelente"
+  recomendacion: "PROCEDER/RECONSIDERAR/NO_APLICAR"
+  justificacion_recomendacion: ""
   gaps_criticos:
-    - gap: "{descripción del gap}"
-      impacto: "{Alto/Medio/Bajo}"
-      estrategia_mitigacion: "{cómo abordarlo en CV}"
-  
+    - gap: ""
+      impacto: "Alto/Medio/Bajo"
+      estrategia_mitigacion: ""
+    # ... repetir por cada gap
   fortalezas_clave:
-    - fortaleza: "{descripción}"
-      relevancia_jd: "{por qué importa para esta posición}"
-      evidencia: "{logro/experiencia específica}"
-  
+    - fortaleza: ""
+      relevancia_jd: ""
+      evidencia: ""
+    # ... repetir por cada fortaleza
   keywords_a_incluir:
-    "{keyword1}": 
-      frecuencia_objetivo: {número}
-      contexto_sugerido: "{dónde incluirlo: summary/experiencia/skills}"
-    "{keyword2}":
-      frecuencia_objetivo: {número}
-      contexto_sugerido: "{contexto}"
-  
+    "keyword": {frecuencia_objetivo: 3, contexto_sugerido: "summary/experiencia/skills"}
+    # ... repetir por cada keyword
   experiencia_a_priorizar:
-    - rol: "{Empresa | Cargo}"
-      años: "{YYYY-YYYY}"
-      prioridad: "{Alta/Media/Baja}"
-      razon: "{por qué es relevante para JD}"
+    - rol: "Empresa | Cargo"
+      años: "YYYY-YYYY"
+      prioridad: "Alta/Media/Baja"
+      razon: ""
+    # ... repetir por cada rol relevante
 
 expectativas_salariales:
-  candidato_min: {número}
-  candidato_max: {número}
-  mercado_p50: {número estimado}
-  posicionamiento: "{Dentro/Limite_Superior/Fuera_Mercado}"
-  viabilidad: "{Alta/Media/Baja}"
-  currency: "{CURRENCY}"
+  candidato_min: 0
+  candidato_max: 0
+  mercado_p50: 0
+  posicionamiento: "Dentro/Limite_Superior/Fuera_Mercado"
+  viabilidad: "Alta/Media/Baja"
+  currency: ""
 ```
 
 ---
@@ -291,47 +263,11 @@ Análisis considerando:
 
 ## 🚀 PRÓXIMOS PASOS
 
-### Si la recomendación es **PROCEDER** ✅:
-
-**Acción inmediata:**
-1. ✅ Ejecutar **Fase 2: Generación de CV DOCX Optimizado**
-2. ✅ Usar el archivo `context_{SESSION_ID}.yaml` generado
-3. ✅ Priorizar experiencia según análisis de relevancia
-
-**Preparación adicional:**
-- Preparar respuestas a preguntas sobre gaps identificados
-- Recopilar evidencia cuantitativa de logros clave
-- Investigar más sobre la empresa/cultura
-
----
-
-### Si la recomendación es **RECONSIDERAR** ⚠️:
-
-**Evaluar antes de proceder:**
-1. ¿Puedo cerrar algún gap crítico rápidamente? (ej: certificación express)
-2. ¿Tengo experiencia análoga que no destaqué en CV original?
-3. ¿Estoy dispuesto a ajustar expectativas salariales?
-
-**Si decides proceder de todos modos:**
-- Ejecutar Fase 2 con énfasis en mitigación de gaps
-- Preparar narrativa sólida para entrevista sobre brechas
-
----
-
-### Si la recomendación es **NO_APLICAR** ❌:
-
-**Razones principales:**
-{Listar razones específicas}
-
-**Plan de acción alternativo:**
-1. Certificaciones a obtener: {lista}
-2. Experiencias a acumular: {descripción}
-3. Posiciones intermedias más adecuadas: {sugerencias}
-4. Timeline realista para volver a intentar: {estimación}
-
-**NO ejecutar Fase 2** - Ahorra tiempo y enfócate en oportunidades más viables
-
----
+| Recomendación | Acción |
+|--------------|--------|
+| **PROCEDER** ✅ | Ejecutar Fase 2 con `context_{SESSION_ID}.yaml` generado |
+| **RECONSIDERAR** ⚠️ | Evaluar gaps críticos; si decides continuar, ejecutar Fase 2 con énfasis en mitigación |
+| **NO_APLICAR** ❌ | No ejecutar Fase 2 — listar certificaciones/experiencias a acumular y timeline |
 
 ```
 
@@ -398,18 +334,4 @@ Antes de entregar outputs, verificar:
 
 ---
 
-## 📌 CONTROL DE VERSIONES
-
-| Versión | Fecha | Cambios |
-|---------|-------|---------|
-| 1.0 | 2026-01-20 | Versión inicial del prompt |
-| 2.0 | 2026-01-21 | Agregado context file YAML, decisión GO/NO-GO explícita, análisis salarial simplificado |
-| 2.1 | 2026-03-11 | CV_TEXT eliminado como input manual — auto-carga desde resumes_base/ según idioma de JD |
-
----
-
-**Desarrollado por:** Julio Gonzales - Numen Coaching & Consulting
-**Para:** Optimización estratégica de aplicaciones laborales  
-**Licencia:** Uso personal
-
----
+<!-- Versión 2.1 | Autor: Julio Gonzales - Numen Coaching & Consulting | Uso personal -->
