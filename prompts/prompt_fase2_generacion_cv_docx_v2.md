@@ -366,30 +366,76 @@ Ejemplo:
 > EOF
 > ```
 
-Guarda el CV en `outputs/CV_JulioGonzales_{EMPRESA}_{POSICION}.md` con esta estructura:
+Guarda el CV en `outputs/CV_JulioGonzales_{EMPRESA}_{POSICION}.md` siguiendo **EXACTAMENTE** esta plantilla. El parser `md_to_docx_v2.js` es estricto — cualquier variación en los marcadores hace que una sección se pierda en el DOCX.
 
-```
-# NOMBRE COMPLETO EN MAYÚSCULAS
-Ciudad, País  |  +Teléfono  |  email  |  LinkedIn: url
+```markdown
+# JULIO ALBERTO GONZALES HEREDIA
+Lima, Perú  |  +51 999 999 999  |  julio@email.com  |  LinkedIn: linkedin.com/in/juliogonzales
+
 ---
-## PROFESSIONAL SUMMARY / RESUMEN PROFESIONAL
-## AI PRODUCT WORK  ← CONDICIONAL: solo si el trabajo IA fue independiente (freelance/personal),
-                       NO si fue dentro de un rol de empleado (va en PROFESSIONAL EXPERIENCE)
-## PROFESSIONAL EXPERIENCE / EXPERIENCIA PROFESIONAL
-### EMPRESA | Ciudad, País
-**Cargo** | Mes Año – Mes Año
-• bullet cuantificado
-## KEY COMPETENCIES / COMPETENCIAS CLAVE
-## EDUCATION & CERTIFICATIONS / FORMACIÓN Y CERTIFICACIONES
-## LANGUAGES / IDIOMAS
-**Español** – Nativo    ← formato OBLIGATORIO: **Nombre** – Nivel (guion largo, no dos puntos)
+
+## PROFESSIONAL SUMMARY
+[3-5 líneas de párrafo corrido, sin bullets. En español: ## RESUMEN PROFESIONAL]
+
+---
+
+## PROFESSIONAL EXPERIENCE
+[En español: ## EXPERIENCIA PROFESIONAL]
+
+### EMPRESA A | Ciudad, País
+[OBLIGATORIO: ### con pipe. SIN este H3 el parser no crea el bloque y los bullets se pierden]
+**Cargo del rol** | Mes Año – Mes Año
+[OBLIGATORIO: **negrita** + pipe + periodo con año. El parser detecta el año para distinguir rol de bullet]
+• Bullet cuantificado con verbo de acción y métrica
+• Bullet cuantificado con verbo de acción y métrica
+• Bullet cuantificado con verbo de acción y métrica
+
+### EMPRESA B | Ciudad, País
+**Cargo del rol** | Mes Año – Mes Año
+• Bullet cuantificado
+• Bullet cuantificado
+
+---
+
+## KEY COMPETENCIES
+[En español: ## COMPETENCIAS CLAVE]
+**Categoría 1:** Skill A, Skill B, Skill C
+**Categoría 2:** Skill D, Skill E, Skill F
+**Categoría 3:** Skill G, Skill H
+
+---
+
+## EDUCATION & CERTIFICATIONS
+[En español: ## FORMACIÓN Y CERTIFICACIONES]
+**Universidad o Institución**
+Grado o Programa — Año
+
+**Nombre Certificación** | Institución Emisora — Año
+**Nombre Certificación** | Institución Emisora — Año
+**Agrupación de certs:** Cert1, Cert2, Cert3
+
+---
+
+## LANGUAGES
+[En español: ## IDIOMAS]
+**Español** – Nativo
+**Inglés** – Avanzado (C1)
 ```
 
-**Headers:** usar el idioma de la JD (español/inglés) — el conversor los detecta automáticamente.
+**Reglas de formato críticas del parser:**
 
-**Si excede 2 páginas:** condensar roles antiguos (máx 2 bullets), agrupar certificaciones, filtrar competencias no relevantes.
+| Elemento | Formato correcto | ❌ NO usar |
+|---|---|---|
+| Empresa (experience) | `### EMPRESA \| Ciudad` (H3) | `**EMPRESA**` o `#### EMPRESA` |
+| Cargo + periodo | `**Cargo** \| Mes Año – Mes Año` | `**Cargo** — Mes Año` sin pipe |
+| Bullets | `• texto` o `- texto` | Texto sin prefijo |
+| Competencias | `**Categoría:** Skills` | `- **Categoría:** Skills` |
+| Idiomas | `**Idioma** – Nivel` | `**Idioma:** Nivel` (con dos puntos) |
+| Secciones | `## NOMBRE SECCIÓN` (H2) | `### NOMBRE SECCIÓN` (H3) |
 
-**Conversión a DOCX:** `node scripts/md_to_docx_v2.js outputs/CV_*.md`
+**Si el CV excede 2 páginas:** condensar roles antiguos (máx 2 bullets), agrupar certificaciones, filtrar competencias no relevantes.
+
+**Conversión a DOCX:** `node scripts/md_to_docx_v2.js outputs/CV_JulioGonzales_{EMPRESA}_{POSICION}.md`
 
 ### PASO 4: Verificación Final
 
