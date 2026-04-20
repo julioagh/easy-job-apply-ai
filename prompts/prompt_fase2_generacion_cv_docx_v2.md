@@ -111,6 +111,31 @@ Las siguientes frases son marcadores automáticos de escritura generada por IA. 
 
 ---
 
+### ⚠️ REGLA ANTI-INVENCIÓN — TRAZABILIDAD OBLIGATORIA POR ROL
+
+Cada bullet generado debe ser **directamente trazable** a texto existente en el CV master **del mismo rol**.
+
+**Test de validación interno (ejecutar por cada bullet antes de escribirlo):**
+> "¿Qué frase exacta del CV master, dentro de este mismo rol, respalda este bullet?"
+> Si no existe una frase fuente en ese mismo rol → el bullet NO se incluye.
+
+**PERMITIDO con inferencia:**
+- Reencuadrar una actividad si existe evidencia de esa misma actividad en **otros bullets del mismo rol** dentro del CV master
+- Usar terminología de la JD si describe el **mismo concepto** que el texto fuente del rol
+
+**PROHIBIDO:**
+- Transferir experiencias de un rol/empresa a otro para completar bullets
+- Inferir actividades basándose en lo que el candidato "sabe hacer" según otros empleos
+- Usar el razonamiento "este tipo de rol normalmente incluiría X"
+- Completar bullets de un rol con evidencia de otro centro de trabajo
+- Mencionar una herramienta en un bullet de rol X si esa herramienta no aparece en la sección de ese rol en el CV master — aunque la herramienta esté listada en la sección global de Tools. La sección Tools es un inventario general, no autoriza asignar herramientas a roles que no las mencionan explícitamente.
+
+**Regla para roles con poco contenido (ej: rol actual reciente):**
+Si el CV master tiene 2-3 bullets para un rol → generar máximo 2-3 bullets.
+La brevedad es preferible a la invención. Un rol corto en el CV debe verse corto.
+
+---
+
 ### 📏 2. LÍMITE ESTRICTO: 2 PÁGINAS
 
 **Estrategia de Priorización si el contenido excede:**
@@ -133,7 +158,7 @@ Las siguientes frases son marcadores automáticos de escritura generada por IA. 
 **FORMACIÓN & CERTIFICACIONES** (Prioridad #2):
 - **Mantener:** Certificaciones mencionadas en JD
 - **Condensar:** Agrupar similares en 1 línea
-  - Ejemplo: "Scrum: CSM, CSPO, A-CSD | SAFe: SPC | Kanban: KMP"
+  - Ejemplo: "Scrum: CSM, CSPO, A-CSD | SAFe: SPC | Kanban: KCP"
 - **Omitir:** Certificaciones no relacionadas con JD
 
 **COMPETENCIAS CLAVE** (Prioridad #3):
@@ -206,8 +231,8 @@ Un CV con keywords repetidos exactamente 4-5 veces activa señales de IA en recl
 **MÁRGENES (CRÍTICO):**
 ```javascript
 // Node.js — docx library
-margins: { top: 1080, bottom: 1080, left: 1080, right: 1080 }
-// = 0.75 in (1.9 cm) en todos los lados
+margins: { top: 900, bottom: 900, left: 720, right: 720 }
+// Top/Bottom: 0.63 in | Left/Right: 0.5 in
 ```
 
 **PALETA DE COLORES:**
@@ -346,15 +371,25 @@ Idiomas: {nivel específico según Marco Común Europeo}
 
 **2.4 CERTIFICACIONES:**
 
-```
-• {Nombre Completo} ({Sigla}) - {Institución} - {Año}
+Usar el formato `**Categoría:** cert1 | cert2` — una línea por categoría. No mezclar múltiples `**bold:**` en una sola línea (el parser solo procesa el primero).
 
-Ejemplo:
-• Professional Scrum Master II (PSM II) - Scrum.org - 2023
-• SAFe 5 Program Consultant (SPC) - Scaled Agile - 2022
+**Estructura de categorías estándar** (incluir solo las relevantes para la JD, en este orden):
 
-[Ordenar por relevancia para JD, no cronológicamente]
 ```
+**Agile@Scale:** SAFe Program Consultant (SPC) | Scrum@Scale Practitioner
+**ICAgile:** ICP-ACC (Agile Coaching) | ICP-ATF (Agile Team Facilitation)
+**Organizational Transformation:** Organization Design Certificate ODC — Org-ology, 2025 | Strategy & Execution Specialist — UMAAN, 2025 | Coaching Agile Teams CAT 1 & 2 (11 weeks each, Lyssa Adkins) | BADASS Agile Coaching Masterclass (Bob Galen, 14 weeks, 2026)
+**Change Management:** Lean Change Agent
+**OKR:** Lean OKR Trainer Certified
+**Scrum:** CSM, CSPO, A-CSD, CAL-1
+**Kanban:** Kanban Coaching Professional (KCP)
+**Coaching:** CB Coach (CBC+ | CBC International)
+**DevOps:** Exin DevOps Master | Continuous Integration, Testing, Delivery & Deployment
+**Facilitation:** Certified Lean Inception Facilitator | Lego Serious Play Facilitator | Real LIFE Facilitator
+**AI & Analytics:** AI+ Executive (AICerts, 2025) | Associate AI Engineer for Developers (DataCamp, 2026)
+```
+
+[Filtrar categorías no relevantes para la JD. Nunca inventar certificaciones no listadas en el CV master.]
 
 ### PASO 3: Generar el Markdown
 
@@ -430,6 +465,7 @@ Grado o Programa — Año
 | Cargo + periodo | `**Cargo** \| Mes Año – Mes Año` | `**Cargo** — Mes Año` sin pipe |
 | Bullets | `• texto` o `- texto` | Texto sin prefijo |
 | Competencias | `**Categoría:** Skills` | `- **Categoría:** Skills` |
+| Certificaciones | Una línea por categoría: `**Categoría:** cert1, cert2` | Múltiples `**bold:**` en una misma línea — el parser solo procesa el primero |
 | Idiomas | `**Idioma** – Nivel` | `**Idioma:** Nivel` (con dos puntos) |
 | Secciones | `## NOMBRE SECCIÓN` (H2) | `### NOMBRE SECCIÓN` (H3) |
 
@@ -442,7 +478,7 @@ Grado o Programa — Año
 **Checklist de calidad:**
 - [ ] Longitud ≤ 2 páginas
 - [ ] Idioma correcto (mismo que JD)
-- [ ] Márgenes: 0.75 in (1.9 cm) en todos los lados
+- [ ] Márgenes: Top/Bottom 0.63 in | Left/Right 0.5 in
 - [ ] Fuente Calibri en todo el documento
 - [ ] Tamaños de fuente correctos (18pt nombre, 12pt headers, 9.5pt body/bullets)
 - [ ] Paleta navy/blue aplicada (nombre, headers, separadores)

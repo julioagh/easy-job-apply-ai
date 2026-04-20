@@ -1,5 +1,9 @@
 # .gitignore
 
+# Tracking de postulaciones (información personal)
+tracking/*.md
+!tracking/README.md
+
 # Archivos de sesión (pueden contener información sensible)
 sessions/*.yaml
 sessions/*.md

@@ -31,7 +31,7 @@ const C_BODY = "000000";
 const C_SUBTLE = "555555";
 const C_MUTED = "666666";
 const PAGE_W = 12240;
-const MARGIN = 1080;
+const MARGIN = 720;   // 0.5 in (izq/der) — antes: 1080 (0.75 in)
 const CONTENT_W = PAGE_W - 2 * MARGIN;
 
 // ─── HELPERS DE RENDER ───────────────────────────────────────────────────────
