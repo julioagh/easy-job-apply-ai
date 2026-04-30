@@ -1,5 +1,11 @@
 # .gitignore
 
+# Archivos de ejemplos con información personal (JDs reales, CVs, contextos)
+examples/*.txt
+examples/*.yaml
+examples/*.md
+!examples/README.md
+
 # Tracking de postulaciones (información personal)
 tracking/*.md
 !tracking/README.md
